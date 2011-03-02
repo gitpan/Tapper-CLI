@@ -1,0 +1,5 @@
+#! /usr/bin/env perl
+
+use Tapper::CLI::DbDeploy;
+Tapper::CLI::DbDeploy->run;
+

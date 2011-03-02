@@ -1,0 +1,28 @@
+
+Tapper
+
+Collection of Tapper Command line utils
+
+INSTALLATION
+
+To install this module, run the following commands:
+
+	perl Build.PL
+	./Build
+	./Build test
+	./Build install
+
+SUPPORT AND DOCUMENTATION
+
+After installing, you can find documentation for this module with the
+perldoc command.
+
+    perldoc Tapper::Cmd
+
+
+COPYRIGHT AND LICENCE
+
+Copyright (C) 2008 OSRC SysInt Team
+
+This program is released under the following license: restrictive
+

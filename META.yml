@@ -1,0 +1,45 @@
+---
+abstract: 'Tapper - tapper-* commandline tools'
+author:
+  - 'AMD OSRC Tapper Team, C<< <tapper at amd64.org> >>'
+  - 'AMD OSRC Tapper Team <tapper@amd64.org>'
+build_requires:
+  DBIx::Class: 0.08112
+  ExtUtils::MakeMaker: 6.42
+  SQL::Translator: 0.11003
+  Tapper::Test: 3.000001
+  Test::Fixture::DBIC::Schema: 0
+  Test::More: 0
+  Test::Perl::Critic: 0
+configure_requires:
+  ExtUtils::MakeMaker: 6.42
+distribution_type: module
+generated_by: 'Module::Install version 1.00'
+license: freebsd
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Tapper-CLI
+no_index:
+  directory:
+    - inc
+    - t
+    - xt
+requires:
+  App::Cmd: 0.301
+  DBIx::Class::TimeStamp: 0
+  Data::Dumper: 0
+  DateTime::Format::Natural: 0
+  File::Slurp: 0
+  IO::Socket: 0
+  Moose: 0
+  MooseX::LazyRequire: 0.06
+  Tapper::Cmd: 3.000001
+  Tapper::Config: 3.000001
+  Tapper::Model: 3.000001
+  Tapper::Schema: 3.000001
+  Template: 0
+  YAML::Syck: 0
+  parent: 0
+  perl: 5.010
+version: 3.000001
