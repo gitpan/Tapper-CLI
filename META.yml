@@ -7,7 +7,7 @@ build_requires:
   DBIx::Class: 0.08112
   ExtUtils::MakeMaker: 6.42
   SQL::Translator: 0.11003
-  Tapper::Test: 3.000001
+  Tapper::Test: 3.000002
   Test::Fixture::DBIC::Schema: 0
   Test::More: 0
   Test::Perl::Critic: 0
@@ -34,12 +34,12 @@ requires:
   IO::Socket: 0
   Moose: 0
   MooseX::LazyRequire: 0.06
-  Tapper::Cmd: 3.000001
-  Tapper::Config: 3.000001
-  Tapper::Model: 3.000001
-  Tapper::Schema: 3.000001
+  Tapper::Cmd: 3.000002
+  Tapper::Config: 3.000002
+  Tapper::Model: 3.000002
+  Tapper::Schema: 3.000002
   Template: 0
-  YAML::Syck: 0
+  YAML::Syck: 1.17
   parent: 0
   perl: 5.010
-version: 3.000001
+version: 3.000002

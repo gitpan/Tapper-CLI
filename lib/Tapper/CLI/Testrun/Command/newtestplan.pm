@@ -17,11 +17,12 @@ sub abstract {
 }
 
 
-my $options = { "verbose" => { text => "some more informational output"                                           },
-                "D"       => { text => "Define a key=value pair used for macro expansion",   type   => 'keyvalue' },
-                "file"    => { text => "String; use (macro) testplan file",                  type => 'string'     },
-                "path"    => { text => "String; put this path into db instead of file path", type => 'string'     },
-                "include" => { text => "String; add include directory (multiple allowed)",   type   => 'manystring', short => 'I' },
+my $options = { "verbose" => { text => "some more informational output"                                         },
+                "D"       => { text => "Define a key=value pair used for macro expansion",   type => 'keyvalue' },
+                "file"    => { text => "String; use (macro) testplan file",                  type => 'string'   },
+                "path"    => { text => "String; put this path into db instead of file path", type => 'string'   },
+                "include" => { text => "String; add include directory (multiple allowed)",   type => 'manystring', short => 'I' },
+                "name"    => { text => "String; provide a name for this testplan instance",  type => 'string'   },
               };
 
 sub opt_spec {
@@ -133,7 +134,7 @@ sub execute
         my $cmd = Tapper::Cmd::Testplan->new();
         my $path = $opt->{path};
         $path = $self->parse_path($opt->{file}) if not $path;
-        my $plan_id = $cmd->add($plan, $path);
+        my $plan_id = $cmd->add($plan, $path, $opt->{name});
         die "Plan not created" unless defined $plan_id;
         if ($opt->{verbose}) {
                 $self->print_result($plan_id);

@@ -70,5 +70,8 @@ t/tapper-cli-queue.t
 t/tapper-cli-testplan.t
 t/tapper-cli-testrun-small.t
 t/tapper-cli-testrun.t
+test-tapper-reports-api-daemon-test.pid
+test-tapper_reports_api_daemon_stderr.log
+test-tapper_reports_api_daemon_stdout.log
 xt/critic.t
 xt/tapper-cli-api.t
