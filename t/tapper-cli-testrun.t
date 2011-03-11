@@ -23,7 +23,7 @@ is($testrun->topic_name, 'Software', "testrun topic_name");
 
 
 
-my $precond_id = `/usr/bin/env perl -Ilib bin/tapper-testrun newprecondition  --condition="precondition_type: image\nname: suse.tgz"`;
+my $precond_id = `$^X -Ilib bin/tapper-testrun newprecondition  --condition="precondition_type: image\nname: suse.tgz"`;
 chomp $precond_id;
 
 my $precond = model('TestrunDB')->resultset('Precondition')->find($precond_id);
@@ -33,7 +33,7 @@ like($precond->precondition, qr"precondition_type: image", 'inserted precond / y
 # --------------------------------------------------
 
 my $old_precond_id = $precond_id;
-$precond_id = `/usr/bin/env perl -Ilib bin/tapper-testrun updateprecondition --id=$old_precond_id --shortname="foobar-perl-5.11" --condition="precondition_type: file\nname: some_file"`;
+$precond_id = `$^X -Ilib bin/tapper-testrun updateprecondition --id=$old_precond_id --shortname="foobar-perl-5.11" --condition="precondition_type: file\nname: some_file"`;
 chomp $precond_id;
 
 $precond = model('TestrunDB')->resultset('Precondition')->find($precond_id);
@@ -43,7 +43,7 @@ like($precond->precondition, qr'precondition_type: file', 'update precond / yaml
 
 # --------------------------------------------------
 
-my $testrun_id = `/usr/bin/env perl -Ilib bin/tapper-testrun new --topic=Software --requested_host=iring --precondition=1`;
+my $testrun_id = `$^X -Ilib bin/tapper-testrun new --topic=Software --requested_host=iring --precondition=1`;
 chomp $testrun_id;
 
 $testrun = model('TestrunDB')->resultset('Testrun')->find($testrun_id);
@@ -53,10 +53,19 @@ is($testrun->topic_name, 'Software', 'Topic for new testrun');
 
 # --------------------------------------------------
 #
+# Testrun with inexisting host
+#
+
+
+$testrun_id = `$^X -Ilib bin/tapper-testrun new --topic=Software --requested_host=nonexisting --precondition=1 2>&1`;
+is($testrun_id, "Host 'nonexisting' does not exist\n", 'Requested host must exist');
+
+# --------------------------------------------------
+#
 # Testrun with requested feature
 #
 
-$testrun_id = `/usr/bin/env perl -Ilib bin/tapper-testrun new --requested_feature='mem > 4096' --queue=KVM --precondition=1`;
+$testrun_id = `$^X -Ilib bin/tapper-testrun new --requested_feature='mem > 4096' --queue=KVM --precondition=1`;
 chomp $testrun_id;
 
 $testrun = model('TestrunDB')->resultset('Testrun')->find($testrun_id);
@@ -70,7 +79,7 @@ is($testrun->testrun_scheduling->queue->name, 'KVM', 'inserted testrun / Queue')
 SKIP: {
         skip "Update is currently deprecated", 3;
         my $old_testrun_id = $testrun_id;
-        $testrun_id = `/usr/bin/env perl -Ilib bin/tapper-testrun update --id=$old_testrun_id --topic=Hardware --requested_host=iring`;
+        $testrun_id = `$^X -Ilib bin/tapper-testrun update --id=$old_testrun_id --topic=Hardware --requested_host=iring`;
         chomp $testrun_id;
 
         $testrun = model('TestrunDB')->resultset('Testrun')->find($testrun_id);
@@ -81,17 +90,17 @@ SKIP: {
 
 # --------------------------------------------------
 
-`/usr/bin/env perl -Ilib bin/tapper-testrun delete --id=$testrun_id --really`;
+`$^X -Ilib bin/tapper-testrun delete --id=$testrun_id --really`;
 $testrun = model('TestrunDB')->resultset('Testrun')->find($testrun_id);
 is($testrun, undef, "delete testrun");
 
-`/usr/bin/env perl -Ilib bin/tapper-testrun deleteprecondition --id=$precond_id --really`;
+`$^X -Ilib bin/tapper-testrun deleteprecondition --id=$precond_id --really`;
 $precond = model('TestrunDB')->resultset('Precondition')->find($precond_id);
 is($precond, undef, "delete precond");
 
 # --------------------------------------------------
 
-$testrun_id = `/usr/bin/env perl -Ilib bin/tapper-testrun new --macroprecond=t/files/kernel_boot.mpc -Dkernel_version=2.6.19 --requested_host=iring`;
+$testrun_id = `$^X -Ilib bin/tapper-testrun new --macroprecond=t/files/kernel_boot.mpc -Dkernel_version=2.6.19 --requested_host=iring`;
 chomp $testrun_id;
 $testrun = model('TestrunDB')->resultset('Testrun')->search({id => $testrun_id,})->first();
 
@@ -102,15 +111,15 @@ is($precond_array[1]->precondition_as_hash->{precondition_type}, "exec",'Parsing
 is($precond_array[1]->precondition_as_hash->{options}->[0], "2.6.19",'Parsing macropreconditions, template toolkit substitution');
 is($precond_array[0]->precondition_as_hash->{filename}, "kernel/linux-2.6.19.tar.gz",'Parsing macropreconditions, template toolkit with if block');
 
-$testrun_id = `/usr/bin/env perl -Ilib bin/tapper-testrun new --macroprecond=t/files/kernel_boot.mpc --requested_host=iring 2>&1`;
+$testrun_id = `$^X -Ilib bin/tapper-testrun new --macroprecond=t/files/kernel_boot.mpc --requested_host=iring 2>&1`;
 chomp $testrun_id;
 like($testrun_id, qr/Expected macro field 'kernel_version' missing./, "missing mandatory field recognized");
 
-$testrun_id = `/usr/bin/env perl -Ilib bin/tapper-testrun new --requested_host=iring 2>&1`;
+$testrun_id = `$^X -Ilib bin/tapper-testrun new --requested_host=iring 2>&1`;
 chomp $testrun_id;
 like($testrun_id, qr/At least one of .+ is required./, "Prevented testrun without precondition");
 
-$testrun_id = `/usr/bin/env perl -Ilib bin/tapper-testrun rerun --testrun=23`;
+$testrun_id = `$^X -Ilib bin/tapper-testrun rerun --testrun=23`;
 chomp $testrun_id;
 ok($testrun_id, 'Got some testrun');
 isnt($testrun_id, 23, 'Rerun creates new testrun');
@@ -122,7 +131,7 @@ is_deeply(\@precond_array, \@precond_array_old, 'Rerun testrun with same precond
 
 # --------------------------------------------------
 
-my $queue_id = `/usr/bin/env perl -Ilib bin/tapper-testrun newqueue  --name="Affe" --priority=4711`;
+my $queue_id = `$^X -Ilib bin/tapper-testrun newqueue  --name="Affe" --priority=4711`;
 chomp $queue_id;
 
 my $queue = model('TestrunDB')->resultset('Queue')->find($queue_id);
@@ -130,7 +139,7 @@ ok($queue->id, 'inserted queue / id');
 is($queue->name, "Affe", 'inserted queue / name');
 is($queue->priority, 4711, 'inserted queue / priority');
 
-$testrun_id = `/usr/bin/env perl -Ilib bin/tapper-testrun new --topic=Software --requested_host=iring --precondition=1 --precondition=2 --queue=Affe --auto_rerun`;
+$testrun_id = `$^X -Ilib bin/tapper-testrun new --topic=Software --requested_host=iring --precondition=1 --precondition=2 --queue=Affe --auto_rerun`;
 chomp $testrun_id;
 
 $testrun = model('TestrunDB')->resultset('Testrun')->find($testrun_id);
@@ -141,7 +150,7 @@ is($testrun->testrun_scheduling->auto_rerun, '1', 'Auto_rerun new testrun');
 
 # --------------------------------------------------
 
-my $host_id = `/usr/bin/env perl -Ilib bin/tapper-testrun newhost --name=fritz --active`;
+my $host_id = `$^X -Ilib bin/tapper-testrun newhost --name=fritz --active`;
 chomp $host_id;
 
 my $host = model('TestrunDB')->resultset('Host')->find($host_id);
@@ -152,7 +161,7 @@ is($host->name, 'fritz', 'Name of new host');
 
 # --------------------------------------------------
 
-$testrun_id = `/usr/bin/env perl -Ilib bin/tapper-testrun new --topic=Software --rerun_on_error=3 --precondition=1`;
+$testrun_id = `$^X -Ilib bin/tapper-testrun new --topic=Software --rerun_on_error=3 --precondition=1`;
 chomp $testrun_id;
 
 $testrun = model('TestrunDB')->resultset('Testrun')->find($testrun_id);
@@ -163,7 +172,7 @@ is($testrun->rerun_on_error, 3, 'Setting rerun on error');
 # --------------------------------------------------
 #         Priorities
 # --------------------------------------------------
-$testrun_id = `/usr/bin/env perl -Ilib bin/tapper-testrun new --topic=Software --priority --precondition=1`;
+$testrun_id = `$^X -Ilib bin/tapper-testrun new --topic=Software --priority --precondition=1`;
 chomp $testrun_id;
 $testrun = model('TestrunDB')->resultset('Testrun')->find($testrun_id);
 ok($testrun->id, 'inserted testrun / id');

@@ -15,7 +15,7 @@ use Test::Fixture::DBIC::Schema;
 construct_fixture( schema  => testrundb_schema, fixture => 't/fixtures/testrundb/testruns_with_scheduling.yml' );
 # -----------------------------------------------------------------------------------------------------------------
 
-my $scenario_id = `/usr/bin/env perl -Ilib bin/tapper-testrun newscenario --file t/files/interdep.sc --quiet`;
+my $scenario_id = `$^X -Ilib bin/tapper-testrun newscenario --file t/files/interdep.sc --quiet`;
 chomp $scenario_id;
 ok($scenario_id, 'newscenario returns a true value');
 my $scenario = model('TestrunDB')->resultset('Scenario')->find($scenario_id);

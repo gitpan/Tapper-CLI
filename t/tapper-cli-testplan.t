@@ -15,7 +15,7 @@ construct_fixture( schema  => testrundb_schema, fixture => 't/fixtures/testrundb
 # -----------------------------------------------------------------------------------------------------------------
 
 
-my $testplan_id = `/usr/bin/env perl -Ilib bin/tapper-testrun newtestplan --file t/files/testplan/osrc/athlon/kernel.mpc  -It/files/testplan/`;
+my $testplan_id = `$^X -Ilib bin/tapper-testrun newtestplan --file t/files/testplan/osrc/athlon/kernel.mpc  -It/files/testplan/`;
 chomp $testplan_id;
 like($testplan_id, qr/^\d+$/, 'Testplan id is actually an id');
 

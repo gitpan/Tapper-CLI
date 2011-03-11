@@ -33,6 +33,11 @@ requires 'DateTime::Format::Natural' => 0;
 requires 'YAML::Syck'                => "1.17";
 requires 'Moose'                     => 0;
 requires 'MooseX::LazyRequire'       => '0.06';
+
 install_script glob('bin/*');
+
+repository 'git://github.com/amd/Tapper-CLI.git';
+bugtracker 'http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Tapper-CLI';
+
 WriteAll;
 

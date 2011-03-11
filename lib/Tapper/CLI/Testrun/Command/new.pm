@@ -15,6 +15,7 @@ use Template;
 
 use Tapper::Cmd::Precondition;
 use Tapper::Cmd::Testrun;
+use Tapper::Config;
 use Tapper::Model 'model';
 
 
@@ -130,6 +131,14 @@ sub validate_args
                 $precondition_ok = 1;
         } else {
                 say STDERR "At least one of ",join ", ",@needed_opts," is required.";
+        }
+
+        # check whether requested hosts exist
+        if ($opt->{requested_host}) {
+                foreach my $host (@{$opt->{requested_host}}) {
+                        my $host_result = model('TestrunDB')->resultset('Host')->search({name => $host});
+                        die "Host '$host' does not exist\n" if not $host_result->count;
+                } 
         }
 
 
@@ -283,7 +292,12 @@ sub new_runtest
         if ($opt->{verbose}) {
                 say $testrun_search->to_string;
         } else {
-                say $testrun_id;
+                if ($ENV{TAPPER_WITH_WEB}) {
+                        my $webserver = Tapper::Config->subconfig->{webserver};
+                        say "http://$webserver/tapper/testrun/id/$testrun_id";
+                } else {
+                        say $testrun_id;
+                }
         }
 }
 

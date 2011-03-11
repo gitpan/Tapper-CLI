@@ -3,7 +3,7 @@ package Tapper::CLI;
 use warnings;
 use strict;
 
-our $VERSION = '3.000002';
+our $VERSION = '3.000004';
 
 =head1 NAME
 
