@@ -46,8 +46,14 @@ sub validate_args
 {
         my ($self, $opt, $args) = @_;
 
+        if (($args and @$args)) {
+                my $msg = "Unknown option";
+                $msg   .= ($args and $#{$args} >=1) ? 's' : '';
+                $msg   .= ": ";
+                die $msg, join(', ',@$args), "\n";
+        }
+
         if (not $opt->{name}) {
-                
                 die "Missing argument --name\n", $self->usage->text;
         }
         return 1;
@@ -74,13 +80,13 @@ sub free_host
 
         my $host = model('TestrunDB')->resultset('Host')->search(name => $opt->{name})->first;
         die "No such host: $opt->{name}" if not  $host;
-        my $testrun = model('TestrunDB')->resultset('TestrunScheduling')->search({host_id => $host->id, status => 'running'})->first;
-        return 0 if not $testrun;
+        my $tr_sched = model('TestrunDB')->resultset('TestrunScheduling')->search({host_id => $host->id, status => 'running'})->first;
+        return 0 if not $tr_sched;
 
         my $msg       = {state => 'quit'};
         $msg->{error} = $opt->{desc} if $opt->{desc};
-        my $msg_rs    = model('TestrunDB')->resultset('TestrunScheduling')->new({testrun_id => $testrun->id, message => $msg});
-        $msg->insert;
+        my $msg_rs    = model('TestrunDB')->resultset('Message')->new({testrun_id => $tr_sched->testrun->id, message => $msg});
+        $msg_rs->insert;
         return 0;
 }
 

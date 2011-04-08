@@ -1,4 +1,4 @@
-#! /usr/bin/env perl
+#! perl
 
 use Tapper::CLI::API;
 Tapper::CLI::API->run;
