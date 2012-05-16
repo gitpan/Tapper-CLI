@@ -1,4 +1,10 @@
 package Tapper::CLI::Testrun::Command::updatequeue;
+BEGIN {
+  $Tapper::CLI::Testrun::Command::updatequeue::AUTHORITY = 'cpan:AMD';
+}
+{
+  $Tapper::CLI::Testrun::Command::updatequeue::VERSION = '4.0.1';
+}
 
 use 5.010;
 
@@ -67,7 +73,7 @@ sub update_queue
 
 
         my $queue = model('TestrunDB')->resultset('Queue')->search({name => $opt->{name}})->first;
-        
+
         my $cmd = Tapper::Cmd::Queue->new();
         my $new_opts = {};
 
@@ -85,7 +91,7 @@ sub update_queue
         }
 }
 
-sub execute 
+sub execute
 {
         my ($self, $opt, $args) = @_;
 
@@ -96,3 +102,27 @@ sub execute
 # perl -Ilib bin/tapper-testrun newqueue --name="xen-3.2" --priority=200
 
 1;
+
+__END__
+=pod
+
+=encoding utf-8
+
+=head1 NAME
+
+Tapper::CLI::Testrun::Command::updatequeue
+
+=head1 AUTHOR
+
+AMD OSRC Tapper Team <tapper@amd64.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2012 by Advanced Micro Devices, Inc..
+
+This is free software, licensed under:
+
+  The (two-clause) FreeBSD License
+
+=cut
+

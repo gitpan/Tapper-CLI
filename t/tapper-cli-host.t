@@ -85,9 +85,14 @@ ok(!$host_result->active, 'Update host by name/ deactivate');
 # --------------------------------------------------
 $host_result = model('TestrunDB')->resultset('Host')->find(7);
 ok($host_result, 'Delete host / host exists before delete');
-qx($^X -Ilib bin/tapper-testrun deletehost --id=7 --really 2>&1);
+is($host_result->is_deleted, 0, 'Delete host / Deleted flag unset before delete');
+is($host_result->active, 1, 'Delete host / Host active before delete');
+is($host_result->name, 'dickstone', 'Working on the expected host');
+qx($^X -Ilib bin/tapper-testrun deletehost --name=dickstone --really 2>&1);
 $host_result = model('TestrunDB')->resultset('Host')->find(7);
-is($host_result, undef, 'Delete host / host does not exist after delete');
+isa_ok($host_result, 'Tapper::Schema::TestrunDB::Result::Host', 'Delete host / host still in DB');
+is($host_result->is_deleted, 1, 'Delete host / Deleted flag set');
+is($host_result->active, 0, 'Delete host / Host no longer active');
 
 
 

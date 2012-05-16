@@ -1,4 +1,10 @@
 package Tapper::CLI::Testrun::Command::list;
+BEGIN {
+  $Tapper::CLI::Testrun::Command::list::AUTHORITY = 'cpan:AMD';
+}
+{
+  $Tapper::CLI::Testrun::Command::list::VERSION = '4.0.1';
+}
 
 use 5.010;
 
@@ -213,3 +219,27 @@ sub _get_entry_by_id {
 1;
 
 # perl -Ilib bin/tapper-testrun list --id 16
+
+__END__
+=pod
+
+=encoding utf-8
+
+=head1 NAME
+
+Tapper::CLI::Testrun::Command::list
+
+=head1 AUTHOR
+
+AMD OSRC Tapper Team <tapper@amd64.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2012 by Advanced Micro Devices, Inc..
+
+This is free software, licensed under:
+
+  The (two-clause) FreeBSD License
+
+=cut
+

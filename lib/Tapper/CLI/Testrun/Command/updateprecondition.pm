@@ -1,4 +1,10 @@
 package Tapper::CLI::Testrun::Command::updateprecondition;
+BEGIN {
+  $Tapper::CLI::Testrun::Command::updateprecondition::AUTHORITY = 'cpan:AMD';
+}
+{
+  $Tapper::CLI::Testrun::Command::updateprecondition::VERSION = '4.0.1';
+}
 
 use 5.010;
 
@@ -113,3 +119,27 @@ sub update_precondition
 # perl -Ilib bin/tapper-testrun updateprecondition --shortname=perl-5.10 --condition_file=- --timeout=100
 
 1;
+
+__END__
+=pod
+
+=encoding utf-8
+
+=head1 NAME
+
+Tapper::CLI::Testrun::Command::updateprecondition
+
+=head1 AUTHOR
+
+AMD OSRC Tapper Team <tapper@amd64.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2012 by Advanced Micro Devices, Inc..
+
+This is free software, licensed under:
+
+  The (two-clause) FreeBSD License
+
+=cut
+

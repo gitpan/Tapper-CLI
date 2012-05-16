@@ -1,4 +1,10 @@
 package Tapper::CLI::Testrun::Command::deletequeue;
+BEGIN {
+  $Tapper::CLI::Testrun::Command::deletequeue::AUTHORITY = 'cpan:AMD';
+}
+{
+  $Tapper::CLI::Testrun::Command::deletequeue::VERSION = '4.0.1';
+}
 
 use 5.010;
 
@@ -57,7 +63,17 @@ sub validate_args
         my ($self, $opt, $args) = @_;
 
         die $self->usage->text unless %$opt ;
-        
+
+        # Prevent unknown options
+        my $msg = "Unknown option";
+        $msg   .= ($args and $#{$args} >=1) ? 's' : '';
+        $msg   .= ": ";
+        if (($args and @$args)) {
+                say STDERR $msg, join(', ',@$args);
+                die $self->usage->text;
+        }
+
+
         die "Missing argument --name" unless  $opt->{name};
         die "Really? Then add --really to the options.\n" unless $opt->{really};
 
@@ -78,7 +94,7 @@ sub delete_queue
         say "Deleted queue ".$queue->name;
 }
 
-sub execute 
+sub execute
 {
         my ($self, $opt, $args) = @_;
 
@@ -89,3 +105,27 @@ sub execute
 # perl -Ilib bin/tapper-testrun deletequeue --name="xen-3.2"
 
 1;
+
+__END__
+=pod
+
+=encoding utf-8
+
+=head1 NAME
+
+Tapper::CLI::Testrun::Command::deletequeue
+
+=head1 AUTHOR
+
+AMD OSRC Tapper Team <tapper@amd64.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2012 by Advanced Micro Devices, Inc..
+
+This is free software, licensed under:
+
+  The (two-clause) FreeBSD License
+
+=cut
+

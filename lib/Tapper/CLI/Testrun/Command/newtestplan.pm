@@ -1,4 +1,10 @@
 package Tapper::CLI::Testrun::Command::newtestplan;
+BEGIN {
+  $Tapper::CLI::Testrun::Command::newtestplan::AUTHORITY = 'cpan:AMD';
+}
+{
+  $Tapper::CLI::Testrun::Command::newtestplan::VERSION = '4.0.1';
+}
 
 use 5.010;
 
@@ -9,6 +15,7 @@ no warnings 'uninitialized';
 use parent 'App::Cmd::Command';
 use Cwd;
 
+use Tapper::Reports::DPath::TT;
 use Tapper::Cmd::Testplan;
 use Tapper::Config;
 
@@ -17,7 +24,9 @@ sub abstract {
 }
 
 
-my $options = { "verbose" => { text => "some more informational output"                                         },
+my $options = { "verbose" => { text => "some more informational output",                     short => 'v' },
+                "dryrun"  => { text => "Just print evaluated testplan without submit to DB", short => 'n' },
+                "guide"   => { text => "Just print self-documentation",                      short => 'g' },
                 "D"       => { text => "Define a key=value pair used for macro expansion",   type => 'keyvalue' },
                 "file"    => { text => "String; use (macro) testplan file",                  type => 'string'   },
                 "path"    => { text => "String; put this path into db instead of file path", type => 'string'   },
@@ -49,14 +58,9 @@ sub opt_spec {
 
 sub usage_desc
 {
-        my $allowed_opts = join ' ', map { '--'.$_ } _allowed_opts();
-        "tapper-testrun newtestplan  [ " . $allowed_opts ." ]";
+        "tapper-testrun newtestplan --file=s  [ -n ] [ -v ] [ -Dkey=value ] [ --path=s ] [ --name=s ] [ --include=s ]*";
 }
 
-sub _allowed_opts
-{
-        my @allowed_opts = map { $_->[0] } opt_spec();
-}
 
 sub validate_args
 {
@@ -77,16 +81,6 @@ sub validate_args
         return 1;
 }
 
-=head2 parse_path
-
-Get the test plan path from the filename. This is a little more tricky
-since we do not simply want the dirname.
-
-@param string - file name
-
-@return string - test plan path
-
-=cut
 
 sub parse_path
 {
@@ -95,19 +89,10 @@ sub parse_path
         my $basedir = Tapper::Config->subconfig->{paths}{testplan_path};
         # splitting filename at basedir returns an array with the empty
         # string before and the path after the basedir
-        my $path = (split $basedir, $filename)[1]; 
+        my $path = (split $basedir, $filename)[1];
         return $path;
 }
 
-=head2 print_result
-
-Format and print more detailled information on the new testplan.
-
-@param int - testplan instance id
-
-
-
-=cut
 
 sub print_result
 {
@@ -117,11 +102,20 @@ sub print_result
         return;
 }
 
-=head2 execute
 
-Worker function
 
-=cut
+sub get_shortname{
+        my ($self, $plan, $name) = @_;
+        return $name if $name;
+
+        foreach my $line (split "\n", $plan) {
+                if ($line =~/^###\s*(?:short)?name\s*:\s*(.+)$/i) {
+                        return $1;
+                }
+        }
+        return;
+}
+
 
 sub execute
 {
@@ -129,20 +123,97 @@ sub execute
 
         use File::Slurp 'slurp';
         my $plan = slurp($opt->{file});
+
         $plan = $self->apply_macro($plan, $opt->{d}, $opt->{include});
-        
+
+        if ($opt->{guide}) {
+                my $guide = $plan;
+                my @guide = grep { m/^###/ } split (qr/\n/, $plan);
+                say "Self-documentation:";
+                say map { my $l = $_; $l =~ s/^###/ /; "$l\n" } @guide;
+                return 0;
+        }
+
+        if ($opt->{dryrun}) {
+                say $plan;
+                return 0;
+        }
+
         my $cmd = Tapper::Cmd::Testplan->new();
         my $path = $opt->{path};
         $path = $self->parse_path($opt->{file}) if not $path;
-        my $plan_id = $cmd->add($plan, $path, $opt->{name});
+
+        my $shortname = $self->get_shortname($plan, $opt->{name});
+        my $plan_id = $cmd->add($plan, $path, $shortname);
         die "Plan not created" unless defined $plan_id;
+
         if ($opt->{verbose}) {
-                $self->print_result($plan_id);
+                my $url = Tapper::Config->subconfig->{base_url} || 'http://tapper/tapper';
+                say "Plan created";
+                say "  id:   $plan_id";
+                say "  url:  $url/testplan/id/$plan_id";
+                say "  path: $path";
+                say "  file: ".$opt->{file};
         } else {
                 say $plan_id;
         }
         return 0;
 }
+
+
+sub apply_macro
+{
+        my ($self, $macro, $substitutes, $includes) = @_;
+
+        my @include_paths = (Tapper::Config->subconfig->{paths}{testplan_path});
+        push @include_paths, @{$includes || [] };
+        my $include_path_list = join ":", @include_paths;
+
+        my $tt = Tapper::Reports::DPath::TT->new(include_path => $include_path_list,
+                                                 substitutes  => $substitutes,
+                                                );
+        return $tt->render_template($macro);
+}
+
+1;
+
+__END__
+=pod
+
+=encoding utf-8
+
+=head1 NAME
+
+Tapper::CLI::Testrun::Command::newtestplan
+
+=head2 parse_path
+
+Get the test plan path from the filename. This is a little more tricky
+since we do not simply want the dirname.
+
+@param string - file name
+
+@return string - test plan path
+
+=head2 print_result
+
+Format and print more detailled information on the new testplan.
+
+@param int - testplan instance id
+
+=head2 get_shortname
+
+Get the shortname for this testplan. The shortname is either given as
+command line option or inside the plan text.
+
+@param string - plan text
+@param string - value of $opt->{name}
+
+@return string - shortname
+
+=head2 execute
+
+Worker function
 
 =head2 apply_macro
 
@@ -152,35 +223,20 @@ Process macros and substitute using Template::Toolkit.
 @param hashref - containing substitutions
 @optparam string - path to more include files
 
-
 @return success - text with applied macros
 @return error   - die with error string
 
+=head1 AUTHOR
+
+AMD OSRC Tapper Team <tapper@amd64.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2012 by Advanced Micro Devices, Inc..
+
+This is free software, licensed under:
+
+  The (two-clause) FreeBSD License
+
 =cut
 
-sub apply_macro
-{
-        my ($self, $macro, $substitutes, $includes) = @_;
-
-        use Template;
-
-        my @include_paths = (Tapper::Config->subconfig->{paths}{testplan_path});
-        push @include_paths, @{$includes || [] };
-        my $include_path_list = join ":", @include_paths;
-
-        my $tt = Template->new({
-                               INCLUDE_PATH =>  $include_path_list,
-                               });
-        my $ttapplied;
-        
-        $tt->process(\$macro, $substitutes, \$ttapplied) || die $tt->error();
-        return $ttapplied;
-}
-
-
-
-
-
-# perl -Ilib bin/tapper-testrun new --topic=Software --precondition=14  --owner=ss5
-
-1;

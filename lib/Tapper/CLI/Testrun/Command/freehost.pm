@@ -1,4 +1,10 @@
 package Tapper::CLI::Testrun::Command::freehost;
+BEGIN {
+  $Tapper::CLI::Testrun::Command::freehost::AUTHORITY = 'cpan:AMD';
+}
+{
+  $Tapper::CLI::Testrun::Command::freehost::VERSION = '4.0.1';
+}
 
 use 5.010;
 
@@ -19,6 +25,7 @@ my $options =  {
                 "verbose"          => { text => "some more informational output", short=> 'v' },
                 "name"             => { text => "TEXT; free host with this name",    type => 'string' },
                 "desc"             => { text => "TEXT; describe why the host is freed",    type => 'string' },
+                "comment"          => { text => "TEXT; alias for desc, ignore if desc exists",    type => 'string' },
                };
 
 sub opt_spec {
@@ -53,11 +60,53 @@ sub validate_args
                 die $msg, join(', ',@$args), "\n";
         }
 
+        if ($opt->{comment} and not $opt->{desc}) {
+                $opt->{desc} = $opt->{comment};
+        }
+
         if (not $opt->{name}) {
                 die "Missing argument --name\n", $self->usage->text;
         }
         return 1;
 }
+
+
+sub free_host
+{
+        my ($self, $opt) = @_;
+
+        my $host = model('TestrunDB')->resultset('Host')->search({name => $opt->{name}})->first;
+        die "No such host: $opt->{name}" if not  $host;
+        my $tr_sched = model('TestrunDB')->resultset('TestrunScheduling')->search({host_id => $host->id, status => 'running'})->first;
+        return 0 if not $tr_sched;
+
+        my $msg       = {state => 'quit'};
+        $msg->{error} = $opt->{desc} if $opt->{desc};
+        my $msg_rs    = model('TestrunDB')->resultset('Message')->new({testrun_id => $tr_sched->testrun->id, message => $msg});
+        $msg_rs->insert;
+        return 0;
+}
+
+
+sub execute
+{
+        my ($self, $opt, $args) = @_;
+
+        $self->free_host($opt);
+        say "Told master controller to free host $opt->{name}. It will act upon your request soon.";
+}
+
+
+1;
+
+__END__
+=pod
+
+=encoding utf-8
+
+=head1 NAME
+
+Tapper::CLI::Testrun::Command::freehost
 
 =head2 free_host
 
@@ -72,32 +121,17 @@ machine.
 
 @throws untyped exception
 
+=head1 AUTHOR
+
+AMD OSRC Tapper Team <tapper@amd64.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2012 by Advanced Micro Devices, Inc..
+
+This is free software, licensed under:
+
+  The (two-clause) FreeBSD License
+
 =cut
 
-sub free_host
-{
-        my ($self, $opt) = @_;
-
-        my $host = model('TestrunDB')->resultset('Host')->search(name => $opt->{name})->first;
-        die "No such host: $opt->{name}" if not  $host;
-        my $tr_sched = model('TestrunDB')->resultset('TestrunScheduling')->search({host_id => $host->id, status => 'running'})->first;
-        return 0 if not $tr_sched;
-
-        my $msg       = {state => 'quit'};
-        $msg->{error} = $opt->{desc} if $opt->{desc};
-        my $msg_rs    = model('TestrunDB')->resultset('Message')->new({testrun_id => $tr_sched->testrun->id, message => $msg});
-        $msg_rs->insert;
-        return 0;
-}
-
-
-sub execute 
-{
-        my ($self, $opt, $args) = @_;
-
-        $self->free_host($opt);
-        say "Host $opt->{name} is free now";
-}
-
-
-1;

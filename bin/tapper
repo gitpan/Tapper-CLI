@@ -1,0 +1,52 @@
+#! /usr/bin/perl
+# PODNAME: tapper
+# ABSTRACT: cmdline frontend to Tapper management - the future Platzhirsch
+
+use App::Rad;
+use Tapper::CLI::Notification;
+use Tapper::CLI::Testplan;
+use Tapper::CLI::Schema;
+use Tapper::CLI::User;
+
+
+use strict;
+use warnings;
+use 5.010;
+
+
+sub setup
+{
+        my ($c) = @_;
+        Tapper::CLI::Notification::setup($c);
+        Tapper::CLI::Schema::setup($c);
+        Tapper::CLI::Testplan::setup($c);
+        Tapper::CLI::User::setup($c);
+}
+
+
+App::Rad->run();
+
+
+__END__
+=pod
+
+=encoding utf-8
+
+=head1 NAME
+
+tapper - cmdline frontend to Tapper management - the future Platzhirsch
+
+=head1 AUTHOR
+
+AMD OSRC Tapper Team <tapper@amd64.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2012 by Advanced Micro Devices, Inc..
+
+This is free software, licensed under:
+
+  The (two-clause) FreeBSD License
+
+=cut
+

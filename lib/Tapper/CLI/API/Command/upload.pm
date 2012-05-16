@@ -1,4 +1,10 @@
 package Tapper::CLI::API::Command::upload;
+BEGIN {
+  $Tapper::CLI::API::Command::upload::AUTHORITY = 'cpan:AMD';
+}
+{
+  $Tapper::CLI::API::Command::upload::VERSION = '4.0.1';
+}
 
 use 5.010;
 
@@ -60,7 +66,7 @@ sub validate_args
         die $self->usage->text;
 }
 
-sub execute 
+sub execute
 {
         my ($self, $opt, $args) = @_;
 
@@ -117,3 +123,27 @@ sub upload
 # dmesg | perl -Ilib bin/tapper-api upload --reportid=552 --file=- --filename="dmesg"
 
 1;
+
+__END__
+=pod
+
+=encoding utf-8
+
+=head1 NAME
+
+Tapper::CLI::API::Command::upload
+
+=head1 AUTHOR
+
+AMD OSRC Tapper Team <tapper@amd64.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2012 by Advanced Micro Devices, Inc..
+
+This is free software, licensed under:
+
+  The (two-clause) FreeBSD License
+
+=cut
+

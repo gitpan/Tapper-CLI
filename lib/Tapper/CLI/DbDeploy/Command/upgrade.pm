@@ -1,4 +1,10 @@
 package Tapper::CLI::DbDeploy::Command::upgrade;
+BEGIN {
+  $Tapper::CLI::DbDeploy::Command::upgrade::AUTHORITY = 'cpan:AMD';
+}
+{
+  $Tapper::CLI::DbDeploy::Command::upgrade::VERSION = '4.0.1';
+}
 
 use 5.010;
 
@@ -11,6 +17,8 @@ use Tapper::Model 'model';
 use Tapper::CLI::DbDeploy;
 use Tapper::Config;
 use Data::Dumper;
+use File::ShareDir 'module_dir';
+use Tapper::Schema; # for module_dir
 
 sub opt_spec {
         return (
@@ -74,7 +82,8 @@ sub run
         Tapper::Config::_switch_context($opt->{env});
 
         my $db = $opt->{db};
-        my $upgradedir  = $opt->{upgradedir};
+        my $upgradedir  = $opt->{upgradedir} || module_dir('Tapper::Schema');
+
         model($db)->upgrade_directory($upgradedir) if $upgradedir;
         model($db)->upgrade;
 }
@@ -83,3 +92,27 @@ sub run
 # perl -Ilib bin/tapper-db-deploy upgrade --db=ReportsDB
 
 1;
+
+__END__
+=pod
+
+=encoding utf-8
+
+=head1 NAME
+
+Tapper::CLI::DbDeploy::Command::upgrade
+
+=head1 AUTHOR
+
+AMD OSRC Tapper Team <tapper@amd64.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2012 by Advanced Micro Devices, Inc..
+
+This is free software, licensed under:
+
+  The (two-clause) FreeBSD License
+
+=cut
+

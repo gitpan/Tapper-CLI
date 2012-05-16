@@ -1,4 +1,10 @@
 package Tapper::CLI::Testrun::Command::show;
+BEGIN {
+  $Tapper::CLI::Testrun::Command::show::AUTHORITY = 'cpan:AMD';
+}
+{
+  $Tapper::CLI::Testrun::Command::show::VERSION = '4.0.1';
+}
 
 use strict;
 use warnings;
@@ -41,7 +47,7 @@ sub validate_args {
         $msg   .= ($args and $#{$args} >=1) ? 's' : '';
         $msg   .= ": ";
         say STDERR $msg, join(', ',@$args) if ($args and @$args);
-        
+
         my $allowed_opts_re = join '|', _extract_bare_option_names();
 
         return 1 if grep /$allowed_opts_re/, keys %$opt;
@@ -136,3 +142,27 @@ sub _get_entry_by_id {
 1;
 
 # perl -Ilib bin/tapper-testrun list --id 16
+
+__END__
+=pod
+
+=encoding utf-8
+
+=head1 NAME
+
+Tapper::CLI::Testrun::Command::show
+
+=head1 AUTHOR
+
+AMD OSRC Tapper Team <tapper@amd64.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2012 by Advanced Micro Devices, Inc..
+
+This is free software, licensed under:
+
+  The (two-clause) FreeBSD License
+
+=cut
+

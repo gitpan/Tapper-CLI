@@ -1,4 +1,7 @@
 [%- PROCESS 'osrc/includes' -%]
+### SELF-DOCUMENTATION
+### ZOMTEC
+## NOT PART OF SELF-DOCS
 ---
 type: [% type %]
 description:

@@ -1,4 +1,10 @@
 package Tapper::CLI::Testrun::Command::new;
+BEGIN {
+  $Tapper::CLI::Testrun::Command::new::AUTHORITY = 'cpan:AMD';
+}
+{
+  $Tapper::CLI::Testrun::Command::new::VERSION = '4.0.1';
+}
 
 use 5.010;
 
@@ -23,7 +29,7 @@ no warnings 'uninitialized';
 
 
 sub abstract {
-        'Update an existing testrun'
+        'Create a new testrun'
 }
 
 
@@ -138,7 +144,7 @@ sub validate_args
                 foreach my $host (@{$opt->{requested_host}}) {
                         my $host_result = model('TestrunDB')->resultset('Host')->search({name => $host});
                         die "Host '$host' does not exist\n" if not $host_result->count;
-                } 
+                }
         }
 
 
@@ -182,19 +188,6 @@ sub execute
         $self->new_runtest ($opt, $args);
 }
 
-=head2 create_macro_preconditions
-
-Process a macroprecondition. This includes substitions using
-Template::Toolkit, separating the individual preconditions that are part of
-the macroprecondition and putting them into the database. Parameters fit the
-App::Cmd::Command API.
-
-@param hashref - hash containing options
-@param hashref - hash containing arguments
-
-@returnlist array containing precondition ids
-
-=cut
 
 sub create_macro_preconditions
 {
@@ -306,3 +299,39 @@ sub new_runtest
 # perl -Ilib bin/tapper-testrun new --topic=Software --precondition=14  --owner=ss5
 
 1;
+
+__END__
+=pod
+
+=encoding utf-8
+
+=head1 NAME
+
+Tapper::CLI::Testrun::Command::new
+
+=head2 create_macro_preconditions
+
+Process a macroprecondition. This includes substitions using
+Template::Toolkit, separating the individual preconditions that are part of
+the macroprecondition and putting them into the database. Parameters fit the
+App::Cmd::Command API.
+
+@param hashref - hash containing options
+@param hashref - hash containing arguments
+
+@returnlist array containing precondition ids
+
+=head1 AUTHOR
+
+AMD OSRC Tapper Team <tapper@amd64.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2012 by Advanced Micro Devices, Inc..
+
+This is free software, licensed under:
+
+  The (two-clause) FreeBSD License
+
+=cut
+

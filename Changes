@@ -1,0 +1,49 @@
+Revision history for Tapper-CLI
+
+4.0.1     2012-05-16
+        - introduce new App::Rad based primary frontend tool "tapper"
+        - [FEAT] Render testplans using Tapper::Reports::DPath::TT
+        - [FEAT] new CLI commands for notification commands
+        - [FEAT] new CLI commands for handling users
+        - [FEAT] new CLI commands for zipfiles
+        - [FEAT] new CLI commands for testplans
+        - [FEAT] newtestplan: new option --guide/-g for self-doc
+        - [FEAT] newtestplan: new option --dryrun/-n for just output
+        - [FEAT] change grub entry of deleted hosts to a passive/useful entry
+        - [FEAT] update grub using action daemon
+        - [FEAT] delete host by setting deleted flag
+        - big Dist::Zilla roundhouse kick
+
+2011-03-30 Steffen Schwigon <steffen.schwigon@amd.com>
+
+	* v3.0.10
+
+	* rewritable shebang line
+	* [FIX] freehost adapted to MCP message receiver
+	* release version++ roundhouse kick
+
+2011-03-10 Steffen Schwigon <steffen.schwigon@amd.com>
+
+	* v3.0.4
+
+	* repository and bugtracker urls
+
+	* more overviewish README
+
+	* [FIX] more substitute /usr/bin/env perl
+
+	* handling of nonexisting requested hosts
+
+2011-03-08 Steffen Schwigon <steffen.schwigon@amd.com>
+
+	* v3.0.2
+
+	* try to force YAML versions
+
+	* accept testplan instance name in CLI now
+
+2011-03-02  Steffen Schwigon  <steffen.schwigon@amd.com>
+
+	* v3.0
+
+	* first public CPAN release

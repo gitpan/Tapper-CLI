@@ -1,5 +1,0 @@
-2011/04/08-14:40:44 Tapper::Reports::API (type Net::Server::Fork) starting! pid(19880)
-Using default listen value of 128
-Binding to TCP port 17358 on host *
-Setting gid to "1000 1000"
-2011/04/08-14:40:57 Server closing!

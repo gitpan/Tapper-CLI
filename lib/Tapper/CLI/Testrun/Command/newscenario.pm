@@ -1,4 +1,10 @@
 package Tapper::CLI::Testrun::Command::newscenario;
+BEGIN {
+  $Tapper::CLI::Testrun::Command::newscenario::AUTHORITY = 'cpan:AMD';
+}
+{
+  $Tapper::CLI::Testrun::Command::newscenario::VERSION = '4.0.1';
+}
 
 use 5.010;
 
@@ -12,7 +18,7 @@ use Tapper::Cmd::Scenario;
 use Tapper::Cmd::Testrun;
 use Tapper::Cmd::Precondition;
 use Tapper::Cmd::Requested;
-
+use Tapper::Config;
 
 sub abstract {
         'Create a new scenario';
@@ -73,11 +79,6 @@ sub validate_args
         return 1;
 }
 
-=head2 execute
-
-Worker function
-
-=cut
 
 sub execute
 {
@@ -101,17 +102,6 @@ sub execute
         return 0;
 }
 
-=head2 apply_macro
-
-Process macros and substit using Template::Toolkit.
-
-@param hashref - hash containing options
-@param hashref - hash containing arguments
-
-@return success - yaml text with applied macros
-@return error   - die with error string
-
-=cut
 
 sub apply_macro
 {
@@ -149,18 +139,6 @@ sub analyse_preconditions
 }
 
 
-=head2 parse_interdep
-
-Parse an interdep scenario and do everything needed to put it into the
-database.
-
-@param hash ref - config containing all relevant information
-@param hash ref - options
-
-@return success - 0
-@return error   - die with error text
-
-=cut
 
 sub parse_interdep
 {
@@ -184,6 +162,7 @@ sub parse_interdep
                 say $sc_id;
         } else {
                 say "scenario $sc_id consists of testruns ",join ", ",@testrun_ids;
+                say Tapper::Config->subconfig->{base_url} // 'http://localhost/tapper', "/testruns/idlist/", join (",",@testrun_ids);
         }
 
 }
@@ -193,3 +172,52 @@ sub parse_interdep
 # perl -Ilib bin/tapper-testrun new --topic=Software --precondition=14  --owner=ss5
 
 1;
+
+__END__
+=pod
+
+=encoding utf-8
+
+=head1 NAME
+
+Tapper::CLI::Testrun::Command::newscenario
+
+=head2 execute
+
+Worker function
+
+=head2 apply_macro
+
+Process macros and substit using Template::Toolkit.
+
+@param hashref - hash containing options
+@param hashref - hash containing arguments
+
+@return success - yaml text with applied macros
+@return error   - die with error string
+
+=head2 parse_interdep
+
+Parse an interdep scenario and do everything needed to put it into the
+database.
+
+@param hash ref - config containing all relevant information
+@param hash ref - options
+
+@return success - 0
+@return error   - die with error text
+
+=head1 AUTHOR
+
+AMD OSRC Tapper Team <tapper@amd64.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2012 by Advanced Micro Devices, Inc..
+
+This is free software, licensed under:
+
+  The (two-clause) FreeBSD License
+
+=cut
+

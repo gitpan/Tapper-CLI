@@ -1,4 +1,10 @@
 package Tapper::CLI::Testrun::Command::newqueue;
+BEGIN {
+  $Tapper::CLI::Testrun::Command::newqueue::AUTHORITY = 'cpan:AMD';
+}
+{
+  $Tapper::CLI::Testrun::Command::newqueue::VERSION = '4.0.1';
+}
 
 use 5.010;
 
@@ -86,7 +92,7 @@ sub new_queue
         }
 }
 
-sub execute 
+sub execute
 {
         my ($self, $opt, $args) = @_;
 
@@ -97,3 +103,27 @@ sub execute
 # perl -Ilib bin/tapper-testrun newqueue --name="xen-3.2" --priority=200
 
 1;
+
+__END__
+=pod
+
+=encoding utf-8
+
+=head1 NAME
+
+Tapper::CLI::Testrun::Command::newqueue
+
+=head1 AUTHOR
+
+AMD OSRC Tapper Team <tapper@amd64.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2012 by Advanced Micro Devices, Inc..
+
+This is free software, licensed under:
+
+  The (two-clause) FreeBSD License
+
+=cut
+

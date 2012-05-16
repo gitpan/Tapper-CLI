@@ -1,4 +1,10 @@
 package Tapper::CLI::Testrun::Command::listqueue;
+BEGIN {
+  $Tapper::CLI::Testrun::Command::listqueue::AUTHORITY = 'cpan:AMD';
+}
+{
+  $Tapper::CLI::Testrun::Command::listqueue::VERSION = '4.0.1';
+}
 
 use 5.010;
 
@@ -14,11 +20,13 @@ sub abstract {
 }
 
 my $options = { "verbose"  => { text => "show all available information; without only show names", short => 'v' },
+                "active"   => { text => "list active hosts", type => 'withno'},
+                "all"      => { text => "list all hosts, even deleted ones"},
                 "minprio"  => { text => "INT; queues with at least this priority level", type => 'string'},
                 "maxprio"  => { text => "INT; queues with at most this priority level", type => 'string'},
                 "name"     => { text => "show only queue with this name, implies verbose, can be given more than once", type => 'manystring' }
               };
-                
+
 
 
 sub opt_spec {
@@ -58,7 +66,7 @@ sub _extract_bare_option_names {
 sub validate_args {
         my ($self, $opt, $args) = @_;
 
-        
+
         my $msg = "Unknown option";
         $msg   .= ($args and $#{$args} >=1) ? 's' : '';
         $msg   .= ": ";
@@ -78,6 +86,7 @@ sub execute {
         my ($self, $opt, $args) = @_;
         my %options= (order_by => 'name');
         my %search;
+        $search{is_deleted} = {-in => [ 0, undef ] } unless $opt->{all};
         if ($opt->{minprio} and $opt->{maxprio}) {
                 $search{"-and"} = [ priority => {'>=' => $opt->{minprio}}, priority => {'<=' => $opt->{maxprio}}];
         } else {
@@ -86,16 +95,27 @@ sub execute {
         }
 
         if ($opt->{name}) {
-                $search{"name"} = { '-in' => $opt->{name}};
+                # ignore all options if queue is requested by name
+                %search = (name => { '-in' => $opt->{name}});
                 $opt->{verbose} = 1;
         }
 
         my $queues = model('TestrunDB')->resultset('Queue')->search(\%search, \%options);
+        if (defined($opt->{active})) {
+                $queues = $queues->search({active => $opt->{active}});
+        }
         if ($opt->{verbose}) {
                 $self->print_queues_verbose($queues)
         } else {
+                my $max_length=-1;
+
                 foreach my $queue ($queues->all) {
-                        say sprintf("%10d | %s", $queue->id, $queue->name);
+                        $max_length = length $queue->name if length $queue->name > $max_length;
+                }
+                foreach my $queue ($queues->all) {
+                        printf("%10d | ", $queue->id, $queue->name, $queue->priority);
+                        print $queue->name, " "x($max_length - length($queue->name));
+                        say " | ",$queue->priority;
                 }
         }
 }
@@ -106,10 +126,10 @@ sub print_queues_verbose
         my ($self, $queues) = @_;
         foreach my $queue ($queues->all) {
                 my $output = sprintf("Id: %s\nName: %s\nPriority: %s\nActive: %s\n",
-                                     $queue->id, 
-                                     $queue->name, 
+                                     $queue->id,
+                                     $queue->name,
                                      $queue->priority,
-                                     $queue->active ? 'yes' : 'no');
+                                     $queue->is_deleted ? 'deleted' : ( $queue->active ? 'yes' : 'no'));
                 if ($queue->queuehosts->count) {
                         my @hosts = map {$_->host->name} $queue->queuehosts->all;
                         $output  .= "Bound hosts: ";
@@ -131,3 +151,27 @@ sub print_queues_verbose
 1;
 
 # perl -Ilib bin/tapper-testrun listqueue -v
+
+__END__
+=pod
+
+=encoding utf-8
+
+=head1 NAME
+
+Tapper::CLI::Testrun::Command::listqueue
+
+=head1 AUTHOR
+
+AMD OSRC Tapper Team <tapper@amd64.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2012 by Advanced Micro Devices, Inc..
+
+This is free software, licensed under:
+
+  The (two-clause) FreeBSD License
+
+=cut
+

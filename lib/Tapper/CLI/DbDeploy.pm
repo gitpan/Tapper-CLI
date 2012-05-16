@@ -1,4 +1,10 @@
 package Tapper::CLI::DbDeploy;
+BEGIN {
+  $Tapper::CLI::DbDeploy::AUTHORITY = 'cpan:AMD';
+}
+{
+  $Tapper::CLI::DbDeploy::VERSION = '4.0.1';
+}
 
 use strict;
 use warnings;
@@ -44,3 +50,27 @@ sub execute_command
 # }
 
 1;
+
+__END__
+=pod
+
+=encoding utf-8
+
+=head1 NAME
+
+Tapper::CLI::DbDeploy
+
+=head1 AUTHOR
+
+AMD OSRC Tapper Team <tapper@amd64.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2012 by Advanced Micro Devices, Inc..
+
+This is free software, licensed under:
+
+  The (two-clause) FreeBSD License
+
+=cut
+

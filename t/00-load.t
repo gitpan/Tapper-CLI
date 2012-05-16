@@ -41,6 +41,3 @@ plan tests => int @modules;
 foreach my $module(@modules) {
         require_ok($module);
 }
-
-
-diag( "Testing Tapper::CLI $Tapper::CLI::VERSION, Perl $], $^X" );

@@ -1,43 +1,96 @@
+
 use strict;
 use warnings;
 
-use inc::Module::Install;
+use 5.010;
 
-name     'Tapper-CLI';
-all_from 'lib/Tapper/CLI.pm';
-author   'AMD OSRC Tapper Team <tapper@amd64.org>';
-license  'freebsd';
+use ExtUtils::MakeMaker 6.30;
 
-build_requires 'Test::More';
-build_requires 'Test::Perl::Critic';
-build_requires 'Test::Fixture::DBIC::Schema';
-build_requires 'DBIx::Class'     => '0.08112';
-build_requires 'Tapper::Test' => "3.000010";
-build_requires 'SQL::Translator' => '0.11003';
 
-author_requires 'Module::Install::WriteAll';
 
-requires 'perl'                      => '5.010';
-requires 'parent'                    => 0;
-requires 'App::Cmd'                  => '0.301';
-requires 'DBIx::Class::TimeStamp'    => 0;
-requires 'File::Slurp'               => 0;
-requires 'IO::Socket'                => 0;
-requires 'Template'                  => 0;
-requires 'Tapper::Model' => "3.000010";
-requires 'Tapper::Config' => "3.000010";
-requires 'Tapper::Schema' => "3.000010";
-requires 'Tapper::Cmd' => "3.000010";
-requires 'Data::Dumper'              => 0;
-requires 'DateTime::Format::Natural' => 0;
-requires 'YAML::Syck'                => "1.17";
-requires 'Moose'                     => 0;
-requires 'MooseX::LazyRequire'       => '0.06';
+my %WriteMakefileArgs = (
+  "ABSTRACT" => "Tapper - tapper-* commandline tools",
+  "AUTHOR" => "AMD OSRC Tapper Team <tapper\@amd64.org>",
+  "BUILD_REQUIRES" => {
+    "Class::C3" => 0,
+    "MRO::Compat" => 0,
+    "Tapper::Schema::TestTools" => 0,
+    "Test::Deep" => 0,
+    "Test::Fixture::DBIC::Schema" => 0,
+    "Test::More" => 0
+  },
+  "CONFIGURE_REQUIRES" => {
+    "ExtUtils::MakeMaker" => "6.30"
+  },
+  "DISTNAME" => "Tapper-CLI",
+  "EXE_FILES" => [
+    "bin/tapper-api",
+    "bin/tapper-db-deploy",
+    "bin/tapper",
+    "bin/tapper-testrun"
+  ],
+  "LICENSE" => "open_source",
+  "NAME" => "Tapper::CLI",
+  "PREREQ_PM" => {
+    "App::Cmd" => 0,
+    "App::Cmd::Command" => 0,
+    "App::Rad" => 0,
+    "Compress::Bzip2" => 0,
+    "Cwd" => 0,
+    "Data::Dumper" => 0,
+    "DateTime::Format::Natural" => 0,
+    "File::ShareDir" => 0,
+    "File::Slurp" => 0,
+    "IO::Socket" => 0,
+    "Moose" => 0,
+    "Tapper::Cmd::Notification" => 0,
+    "Tapper::Cmd::Precondition" => 0,
+    "Tapper::Cmd::Queue" => 0,
+    "Tapper::Cmd::Requested" => 0,
+    "Tapper::Cmd::Scenario" => 0,
+    "Tapper::Cmd::Testplan" => 0,
+    "Tapper::Cmd::Testrun" => 0,
+    "Tapper::Cmd::User" => 0,
+    "Tapper::Config" => 0,
+    "Tapper::Model" => 0,
+    "Tapper::Reports::DPath::TT" => 0,
+    "Tapper::Schema" => 0,
+    "Tapper::Schema::ReportsDB" => 0,
+    "Tapper::Schema::TestrunDB" => 0,
+    "Tapper::Testplan::Reporter" => 0,
+    "Template" => 0,
+    "Try::Tiny" => 0,
+    "UNIVERSAL" => 0,
+    "YAML::Syck" => 0,
+    "YAML::XS" => 0,
+    "parent" => 0,
+    "strict" => 0,
+    "warnings" => 0
+  },
+  "VERSION" => "4.0.1",
+  "test" => {
+    "TESTS" => "t/*.t"
+  }
+);
 
-install_script glob('bin/*');
 
-repository 'git://github.com/amd/Tapper-CLI.git';
-bugtracker 'http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Tapper-CLI';
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {
+  my $br = delete $WriteMakefileArgs{BUILD_REQUIRES};
+  my $pp = $WriteMakefileArgs{PREREQ_PM};
+  for my $mod ( keys %$br ) {
+    if ( exists $pp->{$mod} ) {
+      $pp->{$mod} = $br->{$mod} if $br->{$mod} > $pp->{$mod};
+    }
+    else {
+      $pp->{$mod} = $br->{$mod};
+    }
+  }
+}
 
-WriteAll;
+delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
+  unless eval { ExtUtils::MakeMaker->VERSION(6.52) };
+
+WriteMakefile(%WriteMakefileArgs);
+
+
 

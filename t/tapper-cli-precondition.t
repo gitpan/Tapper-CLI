@@ -45,7 +45,7 @@ is_deeply(\@retval, [5, 8], 'List preconditions / per testrun, short');
 
 @retval = `$^X -Ilib bin/tapper-testrun updateprecondition  --shortname="foobar-perl-5.11" --condition="precondition_type: file\nname: some_file" 2>&1`;
 chomp @retval;
-is($retval[0], "Required option missing: id", 'Update precondition / id');
+like($retval[0], qr/(\bmissing\b.*\bid\b)|(\bid\b.*\bmissing\b)/, 'Update precondition / id');
 
 `$^X -Ilib bin/tapper-testrun deleteprecondition --id=$precond_id --really`;
 $precond = model('TestrunDB')->resultset('Precondition')->find($precond_id);

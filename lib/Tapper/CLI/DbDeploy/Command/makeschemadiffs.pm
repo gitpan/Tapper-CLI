@@ -1,4 +1,10 @@
 package Tapper::CLI::DbDeploy::Command::makeschemadiffs;
+BEGIN {
+  $Tapper::CLI::DbDeploy::Command::makeschemadiffs::AUTHORITY = 'cpan:AMD';
+}
+{
+  $Tapper::CLI::DbDeploy::Command::makeschemadiffs::VERSION = '4.0.1';
+}
 
 use 5.010;
 
@@ -10,6 +16,8 @@ use Tapper::Model 'model';
 use Tapper::CLI::DbDeploy;
 use Tapper::Config;
 use Data::Dumper;
+use File::ShareDir 'module_dir';
+use Tapper::Schema; # for module_dir
 
 sub opt_spec {
         return (
@@ -75,7 +83,7 @@ sub run
 
         my $db          = $opt->{db};
         my $fromversion = $opt->{fromversion};
-        my $upgradedir  = $opt->{upgradedir};
+        my $upgradedir  = $opt->{upgradedir} || module_dir('Tapper::Schema');
         model($db)->upgrade_directory($upgradedir) if $upgradedir;
         model($db)->create_ddl_dir([qw/MySQL SQLite/],
                                    undef,
@@ -89,3 +97,27 @@ sub run
 # perl -Ilib bin/tapper-db-deploy makeschemadiffs --upgradedir=$HOME/local/projects/Tapper/src/Tapper-Schema/upgrades/ --db=ReportsDB --fromversion=2.010009
 
 1;
+
+__END__
+=pod
+
+=encoding utf-8
+
+=head1 NAME
+
+Tapper::CLI::DbDeploy::Command::makeschemadiffs
+
+=head1 AUTHOR
+
+AMD OSRC Tapper Team <tapper@amd64.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2012 by Advanced Micro Devices, Inc..
+
+This is free software, licensed under:
+
+  The (two-clause) FreeBSD License
+
+=cut
+

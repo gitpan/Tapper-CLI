@@ -1,4 +1,10 @@
 package Tapper::CLI::Testrun::Command::deletehost;
+BEGIN {
+  $Tapper::CLI::Testrun::Command::deletehost::AUTHORITY = 'cpan:AMD';
+}
+{
+  $Tapper::CLI::Testrun::Command::deletehost::VERSION = '4.0.1';
+}
 
 use 5.010;
 use strict;
@@ -16,6 +22,7 @@ sub opt_spec {
                 [ "verbose|v",  "some more informational output" ],
                 [ "really",   "really execute the command"     ],
                 [ "id=s@",    "delete particular host",    ],
+                [ "name=s@",  "Select host to delete by name" ],
                );
 }
 
@@ -48,15 +55,41 @@ sub validate_args {
         die $self->usage->text;
 }
 
+
+
+sub update_grub
+{
+        my ($self, $hostname) = @_;
+        my $message = model('TestrunDB')->resultset('Message')->new({type => 'action',
+                                                                     message => {action => 'updategrub',
+                                                                                 host   => $hostname,
+                                                                                }});
+        $message->insert;
+        return 0;
+}
+
+
 sub execute {
         my ($self, $opt, $args) = @_;
+
+ NAME:
+        foreach my $name (@{$opt->{name}}) {
+                my $host = model('TestrunDB')->resultset('Host')->search({name => $name})->first;
+                push @{$opt->{id}}, $host->id;
+        }
 
  ID:
         foreach my $id (@{$opt->{id}}){
                 my $host = model('TestrunDB')->resultset('Host')->find($id);
-                next ID if not $host;
+                if (not $host) {
+                        warn "No host with $id";
+                        next ID;
+                }
                 my $name = $host->name;
-                $host->delete();
+                $self->update_grub($host);
+                $host->active(0);
+                $host->is_deleted(1);
+                $host->update();
                 say "Deleted host $name with id $id" if $opt->{verbose};
         }
 }
@@ -64,3 +97,35 @@ sub execute {
 1;
 
 # perl -Ilib bin/tapper-testrun delete --id 16
+
+__END__
+=pod
+
+=encoding utf-8
+
+=head1 NAME
+
+Tapper::CLI::Testrun::Command::deletehost
+
+=head2 update_grub
+
+Install a default grub config for host so that it does no longer try to
+execute Tapper testruns.
+
+@return success - 0
+@return error   - die()
+
+=head1 AUTHOR
+
+AMD OSRC Tapper Team <tapper@amd64.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2012 by Advanced Micro Devices, Inc..
+
+This is free software, licensed under:
+
+  The (two-clause) FreeBSD License
+
+=cut
+

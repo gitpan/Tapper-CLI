@@ -1,4 +1,10 @@
 package Tapper::CLI::Testrun::Command::deleteprecondition;
+BEGIN {
+  $Tapper::CLI::Testrun::Command::deleteprecondition::AUTHORITY = 'cpan:AMD';
+}
+{
+  $Tapper::CLI::Testrun::Command::deleteprecondition::VERSION = '4.0.1';
+}
 
 use strict;
 use warnings;
@@ -48,7 +54,7 @@ sub validate_args {
                 say STDERR "Really? Then add --really to the options.";
                 die $self->usage->text;
         }
-        return 0; 
+        return 0;
 }
 
 sub execute {
@@ -70,3 +76,27 @@ sub execute {
 1;
 
 # perl -Ilib bin/tapper-testrun deleteprecondition --id 16
+
+__END__
+=pod
+
+=encoding utf-8
+
+=head1 NAME
+
+Tapper::CLI::Testrun::Command::deleteprecondition
+
+=head1 AUTHOR
+
+AMD OSRC Tapper Team <tapper@amd64.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2012 by Advanced Micro Devices, Inc..
+
+This is free software, licensed under:
+
+  The (two-clause) FreeBSD License
+
+=cut
+

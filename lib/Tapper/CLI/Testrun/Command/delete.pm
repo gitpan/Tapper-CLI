@@ -1,4 +1,10 @@
 package Tapper::CLI::Testrun::Command::delete;
+BEGIN {
+  $Tapper::CLI::Testrun::Command::delete::AUTHORITY = 'cpan:AMD';
+}
+{
+  $Tapper::CLI::Testrun::Command::delete::VERSION = '4.0.1';
+}
 
 use strict;
 use warnings;
@@ -54,6 +60,10 @@ sub execute {
 
         my $cmd = Tapper::Cmd::Testrun->new();
         foreach my $id (@{$opt->{id}}){
+                if (not $opt->{really}) {
+                        say "Skip delete testrun $id. Use --really.";
+                        next;
+                }
                 my $error = $cmd->del($id);
                 if ($error) {
                         say STDERR "Can not delete testrun $id: $error";
@@ -65,3 +75,27 @@ sub execute {
 1;
 
 # perl -Ilib bin/tapper-testrun delete --id 16
+
+__END__
+=pod
+
+=encoding utf-8
+
+=head1 NAME
+
+Tapper::CLI::Testrun::Command::delete
+
+=head1 AUTHOR
+
+AMD OSRC Tapper Team <tapper@amd64.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2012 by Advanced Micro Devices, Inc..
+
+This is free software, licensed under:
+
+  The (two-clause) FreeBSD License
+
+=cut
+
