@@ -1,9 +1,11 @@
 package Tapper::CLI;
+# git description: v4.0.1-57-gee26fc8
+
 BEGIN {
   $Tapper::CLI::AUTHORITY = 'cpan:AMD';
 }
 {
-  $Tapper::CLI::VERSION = '4.0.1';
+  $Tapper::CLI::VERSION = '4.1.0';
 }
 # ABSTRACT: Tapper - tapper-* commandline tools
 

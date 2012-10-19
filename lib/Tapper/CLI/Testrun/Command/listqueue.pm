@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::Testrun::Command::listqueue::AUTHORITY = 'cpan:AMD';
 }
 {
-  $Tapper::CLI::Testrun::Command::listqueue::VERSION = '4.0.1';
+  $Tapper::CLI::Testrun::Command::listqueue::VERSION = '4.1.0';
 }
 
 use 5.010;
@@ -133,6 +133,12 @@ sub print_queues_verbose
                 if ($queue->queuehosts->count) {
                         my @hosts = map {$_->host->name} $queue->queuehosts->all;
                         $output  .= "Bound hosts: ";
+                        $output  .= join ", ",@hosts;
+                        $output  .= "\n";
+                }
+                if ($queue->deniedhosts->count) {
+                        my @hosts = map {$_->host->name} $queue->deniedhosts->all;
+                        $output  .= "Denied hosts: ";
                         $output  .= join ", ",@hosts;
                         $output  .= "\n";
                 }

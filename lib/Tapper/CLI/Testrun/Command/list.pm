@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::Testrun::Command::list::AUTHORITY = 'cpan:AMD';
 }
 {
-  $Tapper::CLI::Testrun::Command::list::VERSION = '4.0.1';
+  $Tapper::CLI::Testrun::Command::list::VERSION = '4.1.0';
 }
 
 use 5.010;
@@ -133,7 +133,7 @@ sub execute {
                 foreach my $queue (@{$opt->{queue}}) {
                         my $queue_r = model('TestrunDB')->resultset('Queue')->search({name => $queue});
                         warn "No such such queue: $queue", next QUEUE if not $queue_r;
-                        push @ids, map {$_->testrun->id} $queue_r->first->testrunschedulings->all;
+                        push @ids, map {$_->testrun->id} $queue_r->search({}, {rows => 1})->first->testrunschedulings->all;
                         $use_flag=1;
                 }
                 $testrun_rs = $testrun_rs->search({id => [ @ids ] }) if $use_flag;

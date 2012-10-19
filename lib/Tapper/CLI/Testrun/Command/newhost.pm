@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::Testrun::Command::newhost::AUTHORITY = 'cpan:AMD';
 }
 {
-  $Tapper::CLI::Testrun::Command::newhost::VERSION = '4.0.1';
+  $Tapper::CLI::Testrun::Command::newhost::VERSION = '4.1.0';
 }
 
 use 5.010;
@@ -99,7 +99,7 @@ sub new_host
                         }
                         my $queue_host = model('TestrunDB')->resultset('QueueHost')->new({
                                                                                           host_id  => $newhost->id,
-                                                                                          queue_id => $queue_rs->first->id,
+                                                                                          queue_id => $queue_rs->search({}, {rows => 1})->first->id,
                                                                                          });
                         $queue_host->insert();
                 }

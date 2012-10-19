@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::API::Command::upload::AUTHORITY = 'cpan:AMD';
 }
 {
-  $Tapper::CLI::API::Command::upload::VERSION = '4.0.1';
+  $Tapper::CLI::API::Command::upload::VERSION = '4.1.0';
 }
 
 use 5.010;

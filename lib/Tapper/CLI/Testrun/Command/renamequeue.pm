@@ -1,9 +1,9 @@
-package Tapper::CLI::Testrun::Command::deletequeue;
+package Tapper::CLI::Testrun::Command::renamequeue;
 BEGIN {
-  $Tapper::CLI::Testrun::Command::deletequeue::AUTHORITY = 'cpan:AMD';
+  $Tapper::CLI::Testrun::Command::renamequeue::AUTHORITY = 'cpan:AMD';
 }
 {
-  $Tapper::CLI::Testrun::Command::deletequeue::VERSION = '4.1.0';
+  $Tapper::CLI::Testrun::Command::renamequeue::VERSION = '4.1.0';
 }
 
 use 5.010;
@@ -17,14 +17,15 @@ use Tapper::Cmd::Queue;
 
 
 sub abstract {
-        'Delete an existing queue'
+        'Rename an existing queue'
 }
 
 
 my $options =  {
                 "verbose" => { text => "some more informational output", short => 'v'            },
                 "really"  => { text => "really execute the command"                              },
-                "name"    => { text => "TEXT; name of the queue to be changed", type => 'string' },
+                "oldname" => { text => "TEXT; name of the queue to be changed", type => 'string' },
+                "newname" => { text => "TEXT; new name of the queue", type => 'string' },
                 };
 
 sub opt_spec {
@@ -55,7 +56,7 @@ sub _allowed_opts {
 sub usage_desc
 {
         my $allowed_opts = join ' | ', map { '--'.$_ } _allowed_opts();
-        "tapper-testrun deletequeue [ " . $allowed_opts ." ]";
+        "tapper-testrun renamequeue [ " . $allowed_opts ." ]";
 }
 
 sub validate_args
@@ -74,31 +75,23 @@ sub validate_args
         }
 
 
-        die "Missing argument --name" unless  $opt->{name};
-        die "Really? Then add --really to the options.\n" unless $opt->{really};
+        die "Missing argument --oldname" unless  $opt->{oldname};
+        die "Missing argument --newname" unless  $opt->{newname};
 
         return 1 if $opt->{name};
 
 }
 
-sub delete_queue
-{
-        my ($self, $opt, $args) = @_;
-
-        my $queue = model('TestrunDB')->resultset('Queue')->search({name => $opt->{name}}, {rows => 1})->first;
-        die "No such queue: ".$opt->{name} if not $queue;
-
-        my $cmd = Tapper::Cmd::Queue->new();
-        $cmd->del($queue->id);
-
-        say "Deleted queue ".$queue->name;
-}
-
 sub execute
 {
         my ($self, $opt, $args) = @_;
+        my $queue = model('TestrunDB')->resultset('Queue')->search({name => $opt->{oldname}}, {rows => 1})->first;
+        die "No such queue: ".$opt->{oldname} if not $queue;
+        $queue->name($opt->{newname});
+        $queue->update;
 
-        $self->delete_queue ($opt, $args);
+        say "$opt->{oldname} is now known as $opt->{newname}";
+
 }
 
 
@@ -113,7 +106,7 @@ __END__
 
 =head1 NAME
 
-Tapper::CLI::Testrun::Command::deletequeue
+Tapper::CLI::Testrun::Command::renamequeue
 
 =head1 AUTHOR
 

@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::Testrun::Command::newqueue::AUTHORITY = 'cpan:AMD';
 }
 {
-  $Tapper::CLI::Testrun::Command::newqueue::VERSION = '4.0.1';
+  $Tapper::CLI::Testrun::Command::newqueue::VERSION = '4.1.0';
 }
 
 use 5.010;
@@ -85,7 +85,7 @@ sub new_queue
         die "Can't create new queue because of an unknown error" if not $queue_id;
 
         if ($opt->{verbose}) {
-                my $entry = model('TestrunDB')->resultset('Queue')->search({id => $queue_id})->first;
+                my $entry = model('TestrunDB')->resultset('Queue')->search({id => $queue_id}, {rows => 1})->first;
                 say $entry->to_string;
         } else {
                 say $queue_id;

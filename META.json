@@ -4,7 +4,7 @@
       "AMD OSRC Tapper Team <tapper@amd64.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.300016, CPAN::Meta::Converter version 2.120921",
+   "generated_by" : "Dist::Zilla version 4.300023, CPAN::Meta::Converter version 2.120921",
    "license" : [
       "freebsd"
    ],
@@ -32,6 +32,7 @@
             "File::Slurp" : "0",
             "IO::Socket" : "0",
             "Moose" : "0",
+            "Tapper::Cmd::Cobbler" : "0",
             "Tapper::Cmd::Notification" : "0",
             "Tapper::Cmd::Precondition" : "0",
             "Tapper::Cmd::Queue" : "0",
@@ -46,6 +47,7 @@
             "Tapper::Schema" : "0",
             "Tapper::Schema::ReportsDB" : "0",
             "Tapper::Schema::TestrunDB" : "0",
+            "Tapper::Testplan::Generator" : "0",
             "Tapper::Testplan::Reporter" : "0",
             "Template" : "0",
             "Try::Tiny" : "0",
@@ -82,93 +84,93 @@
          "web" : "http://github.com/amd/Tapper-CLI"
       }
    },
-   "version" : "4.0.1",
+   "version" : "4.1.0",
    "x_Dist_Zilla" : {
       "plugins" : [
          {
             "class" : "Dist::Zilla::Plugin::GatherDir",
             "name" : "@AMD/GatherDir",
-            "version" : "4.300016"
+            "version" : "4.300023"
          },
          {
             "class" : "Dist::Zilla::Plugin::PruneCruft",
             "name" : "@AMD/PruneCruft",
-            "version" : "4.300016"
+            "version" : "4.300023"
          },
          {
             "class" : "Dist::Zilla::Plugin::ManifestSkip",
             "name" : "@AMD/ManifestSkip",
-            "version" : "4.300016"
+            "version" : "4.300023"
          },
          {
             "class" : "Dist::Zilla::Plugin::MetaYAML",
             "name" : "@AMD/MetaYAML",
-            "version" : "4.300016"
+            "version" : "4.300023"
          },
          {
             "class" : "Dist::Zilla::Plugin::Readme",
             "name" : "@AMD/Readme",
-            "version" : "4.300016"
+            "version" : "4.300023"
          },
          {
             "class" : "Dist::Zilla::Plugin::ExtraTests",
             "name" : "@AMD/ExtraTests",
-            "version" : "4.300016"
+            "version" : "4.300023"
          },
          {
             "class" : "Dist::Zilla::Plugin::ExecDir",
             "name" : "@AMD/ExecDir",
-            "version" : "4.300016"
+            "version" : "4.300023"
          },
          {
             "class" : "Dist::Zilla::Plugin::ShareDir",
             "name" : "@AMD/ShareDir",
-            "version" : "4.300016"
+            "version" : "4.300023"
          },
          {
             "class" : "Dist::Zilla::Plugin::MakeMaker",
             "name" : "@AMD/MakeMaker",
-            "version" : "4.300016"
+            "version" : "4.300023"
          },
          {
             "class" : "Dist::Zilla::Plugin::Manifest",
             "name" : "@AMD/Manifest",
-            "version" : "4.300016"
+            "version" : "4.300023"
          },
          {
             "class" : "Dist::Zilla::Plugin::TestRelease",
             "name" : "@AMD/TestRelease",
-            "version" : "4.300016"
+            "version" : "4.300023"
          },
          {
             "class" : "Dist::Zilla::Plugin::ConfirmRelease",
             "name" : "@AMD/ConfirmRelease",
-            "version" : "4.300016"
+            "version" : "4.300023"
          },
          {
             "class" : "Dist::Zilla::Plugin::UploadToCPAN",
             "name" : "@AMD/UploadToCPAN",
-            "version" : "4.300016"
+            "version" : "4.300023"
          },
          {
             "class" : "Dist::Zilla::Plugin::MetaConfig",
             "name" : "@AMD/MetaConfig",
-            "version" : "4.300016"
+            "version" : "4.300023"
          },
          {
             "class" : "Dist::Zilla::Plugin::MetaJSON",
             "name" : "@AMD/MetaJSON",
-            "version" : "4.300016"
+            "version" : "4.300023"
          },
          {
             "class" : "Dist::Zilla::Plugin::PkgVersion",
             "name" : "@AMD/PkgVersion",
-            "version" : "4.300016"
+            "version" : "4.300023"
          },
          {
             "class" : "Dist::Zilla::Plugin::PodSyntaxTests",
             "name" : "@AMD/PodSyntaxTests",
-            "version" : "4.300016"
+            "version" : "4.300023"
          },
          {
             "class" : "Dist::Zilla::Plugin::NoTabsTests",
@@ -178,7 +180,7 @@
          {
             "class" : "Dist::Zilla::Plugin::MetaResources",
             "name" : "@AMD/MetaResources",
-            "version" : "4.300016"
+            "version" : "4.300023"
          },
          {
             "class" : "Dist::Zilla::Plugin::Authority",
@@ -198,17 +200,22 @@
          {
             "class" : "Dist::Zilla::Plugin::AutoPrereqs",
             "name" : "@AMD/AutoPrereqs",
-            "version" : "4.300016"
+            "version" : "4.300023"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::Git::Describe",
+            "name" : "@AMD/Git::Describe",
+            "version" : "0.002"
          },
          {
             "class" : "Dist::Zilla::Plugin::CheckChangesHasContent",
             "name" : "@AMD/CheckChangesHasContent",
-            "version" : "0.005"
+            "version" : "0.006"
          },
          {
             "class" : "Dist::Zilla::Plugin::NextRelease",
             "name" : "@AMD/NextRelease",
-            "version" : "4.300016"
+            "version" : "4.300023"
          },
          {
             "class" : "Dist::Zilla::Plugin::Git::CheckFor::CorrectBranch",
@@ -218,57 +225,57 @@
          {
             "class" : "Dist::Zilla::Plugin::Git::NextVersion",
             "name" : "@AMD/Git::NextVersion",
-            "version" : "1.121010"
+            "version" : "1.122530"
          },
          {
             "class" : "Dist::Zilla::Plugin::Git::Check",
             "name" : "@AMD/@Git/Check",
-            "version" : "1.121010"
+            "version" : "1.122530"
          },
          {
             "class" : "Dist::Zilla::Plugin::Git::Commit",
             "name" : "@AMD/@Git/Commit",
-            "version" : "1.121010"
+            "version" : "1.122530"
          },
          {
             "class" : "Dist::Zilla::Plugin::Git::Tag",
             "name" : "@AMD/@Git/Tag",
-            "version" : "1.121010"
+            "version" : "1.122530"
          },
          {
             "class" : "Dist::Zilla::Plugin::Git::Push",
             "name" : "@AMD/@Git/Push",
-            "version" : "1.121010"
+            "version" : "1.122530"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":InstallModules",
-            "version" : "4.300016"
+            "version" : "4.300023"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":IncModules",
-            "version" : "4.300016"
+            "version" : "4.300023"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":TestFiles",
-            "version" : "4.300016"
+            "version" : "4.300023"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":ExecFiles",
-            "version" : "4.300016"
+            "version" : "4.300023"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":ShareFiles",
-            "version" : "4.300016"
+            "version" : "4.300023"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
             "name" : ":MainModule",
-            "version" : "4.300016"
+            "version" : "4.300023"
          }
       ],
       "zilla" : {
@@ -276,7 +283,7 @@
          "config" : {
             "is_trial" : "0"
          },
-         "version" : "4.300016"
+         "version" : "4.300023"
       }
    },
    "x_authority" : "cpan:AMD"

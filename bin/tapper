@@ -7,6 +7,8 @@ use Tapper::CLI::Notification;
 use Tapper::CLI::Testplan;
 use Tapper::CLI::Schema;
 use Tapper::CLI::User;
+use Tapper::CLI::Host;
+use Tapper::CLI::Cobbler;
 
 
 use strict;
@@ -21,6 +23,8 @@ sub setup
         Tapper::CLI::Schema::setup($c);
         Tapper::CLI::Testplan::setup($c);
         Tapper::CLI::User::setup($c);
+        Tapper::CLI::Host::setup($c);
+        Tapper::CLI::Cobbler::setup($c);
 }
 
 

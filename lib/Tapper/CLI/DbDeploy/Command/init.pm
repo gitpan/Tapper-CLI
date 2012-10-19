@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::DbDeploy::Command::init::AUTHORITY = 'cpan:AMD';
 }
 {
-  $Tapper::CLI::DbDeploy::Command::init::VERSION = '4.0.1';
+  $Tapper::CLI::DbDeploy::Command::init::VERSION = '4.1.0';
 }
 
 use 5.010;
@@ -95,6 +95,8 @@ sub insert_initial_values
 sub init_db
 {
         my ($self, $db) = @_;
+
+        local $| =1;
 
         my $dsn  = Tapper::Config->subconfig->{database}{$db}{dsn};
         my $user = Tapper::Config->subconfig->{database}{$db}{username};

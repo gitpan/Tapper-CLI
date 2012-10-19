@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::Testrun::Command::updateprecondition::AUTHORITY = 'cpan:AMD';
 }
 {
-  $Tapper::CLI::Testrun::Command::updateprecondition::VERSION = '4.0.1';
+  $Tapper::CLI::Testrun::Command::updateprecondition::VERSION = '4.1.0';
 }
 
 use 5.010;
@@ -107,7 +107,7 @@ sub update_precondition
 
         if ($opt->{verbose}) {
 
-                my $precondition = model('TestrunDB')->resultset('Precondition')->search({id => $id})->first;
+                my $precondition = model('TestrunDB')->resultset('Precondition')->search({id => $id}, {rows => 1})->first;
                 say $precondition->to_string;
         }  else {
                 say $id;

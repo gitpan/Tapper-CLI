@@ -1,5 +1,30 @@
 Revision history for Tapper-CLI
 
+4.1.0     2012-10-19
+        * PostgreSQL support
+        - [FIX] slow first() usage
+        - rename USER into OWNER
+
+        * Cobbler
+        - [FEAT] $cmd-new alias for $cmd-add
+        - [FEAT] cobbler CLI commands
+
+        * Towards a single frontend:
+        - [FEAT] more subcommands migrated from the soon-to-be-deprecated
+          "tapper-testrun" to the new central frontend "testrun" tool
+
+        * Features and Misc
+        - [FEAT] queues and host_id for host-list --yaml
+        - [FEAT] testplan handling for TaskJuggler
+        - [FEAT] renamequeue command
+        - [FEAT] testplan-send: allow --file with list of tasknames
+        - [FEAT] sanity check for host bind and deny
+        - [FEAT] host blacklisting per queue ("denied hosts")
+        - [FEAT] show comments only at high verbosity level
+        - [FIX] reworked all commands for overall consistency
+        - [FIX] Queue command went to Host, deleted Queue module
+        - [FIX] notification tests
+
 4.0.1     2012-05-16
         - introduce new App::Rad based primary frontend tool "tapper"
         - [FEAT] Render testplans using Tapper::Reports::DPath::TT

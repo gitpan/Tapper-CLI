@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::Testrun::AUTHORITY = 'cpan:AMD';
 }
 {
-  $Tapper::CLI::Testrun::VERSION = '4.0.1';
+  $Tapper::CLI::Testrun::VERSION = '4.1.0';
 }
 
 use strict;

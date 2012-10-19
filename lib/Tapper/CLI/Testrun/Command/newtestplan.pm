@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::Testrun::Command::newtestplan::AUTHORITY = 'cpan:AMD';
 }
 {
-  $Tapper::CLI::Testrun::Command::newtestplan::VERSION = '4.0.1';
+  $Tapper::CLI::Testrun::Command::newtestplan::VERSION = '4.1.0';
 }
 
 use 5.010;

@@ -57,8 +57,14 @@ like($host_id, qr(No such queue: noexist), 'Error handling for nonexistent queue
 
 
 # --------------------------------------------------
+# diag qx($^X -Ilib bin/tapper-testrun listhost -v);
+# diag qx($^X -Ilib bin/tapper host-list -v);
 my $hosts = qx($^X -Ilib bin/tapper-testrun listhost --queue=KVM 2>&1);
 like($hosts, qr(11 *| *host2\n *12 *| *host3\n), 'Show hosts / queue');
+
+$hosts = qx($^X -Ilib bin/tapper host-list --queue=KVM 2>&1);
+like($hosts, qr(11 *| *host2\n *12 *| *host3\n), 'Show hosts / queue');
+
 
 
 # --------------------------------------------------
@@ -95,8 +101,16 @@ is($host_result->is_deleted, 1, 'Delete host / Deleted flag set');
 is($host_result->active, 0, 'Delete host / Host no longer active');
 
 
+qx($^X -Ilib bin/tapper host-deny --host=dickstone --queue=AdHoc);
+my $queue_result = model('TestrunDB')->resultset('Queue')->find({name => 'AdHoc'});
+is($queue_result->deniedhosts->first->host->name, 'dickstone', 'Dickstone denied from queue AdHoc');
+qx($^X -Ilib bin/tapper host-deny --host=dickstone --queue=AdHoc --off);
+is($queue_result->deniedhosts->count, 0, 'Dickstone denial from queue AdHoc removed');
 
-
-
+qx($^X -Ilib bin/tapper host-bind --host=dickstone --queue=AdHoc);
+$queue_result = model('TestrunDB')->resultset('Queue')->find({name => 'AdHoc'});
+is($queue_result->queuehosts->first->host->name, 'dickstone', 'Dickstone bound to queue AdHoc');
+qx($^X -Ilib bin/tapper host-bind --host=dickstone --queue=AdHoc --off);
+is($queue_result->deniedhosts->count, 0, 'Dickstone binding to queue AdHoc removed');
 
 done_testing();

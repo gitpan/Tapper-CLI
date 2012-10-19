@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::DbDeploy::AUTHORITY = 'cpan:AMD';
 }
 {
-  $Tapper::CLI::DbDeploy::VERSION = '4.0.1';
+  $Tapper::CLI::DbDeploy::VERSION = '4.1.0';
 }
 
 use strict;

@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::Testrun::Command::freehost::AUTHORITY = 'cpan:AMD';
 }
 {
-  $Tapper::CLI::Testrun::Command::freehost::VERSION = '4.0.1';
+  $Tapper::CLI::Testrun::Command::freehost::VERSION = '4.1.0';
 }
 
 use 5.010;
@@ -75,9 +75,9 @@ sub free_host
 {
         my ($self, $opt) = @_;
 
-        my $host = model('TestrunDB')->resultset('Host')->search({name => $opt->{name}})->first;
+        my $host = model('TestrunDB')->resultset('Host')->search({name => $opt->{name}}, {rows => 1})->first;
         die "No such host: $opt->{name}" if not  $host;
-        my $tr_sched = model('TestrunDB')->resultset('TestrunScheduling')->search({host_id => $host->id, status => 'running'})->first;
+        my $tr_sched = model('TestrunDB')->resultset('TestrunScheduling')->search({host_id => $host->id, status => 'running'}, {rows => 1})->first;
         return 0 if not $tr_sched;
 
         my $msg       = {state => 'quit'};

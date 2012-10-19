@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::Testrun::Command::updatequeue::AUTHORITY = 'cpan:AMD';
 }
 {
-  $Tapper::CLI::Testrun::Command::updatequeue::VERSION = '4.0.1';
+  $Tapper::CLI::Testrun::Command::updatequeue::VERSION = '4.1.0';
 }
 
 use 5.010;
@@ -72,7 +72,7 @@ sub update_queue
         my ($self, $opt, $args) = @_;
 
 
-        my $queue = model('TestrunDB')->resultset('Queue')->search({name => $opt->{name}})->first;
+        my $queue = model('TestrunDB')->resultset('Queue')->search({name => $opt->{name}}, {rows => 1})->first;
 
         my $cmd = Tapper::Cmd::Queue->new();
         my $new_opts = {};

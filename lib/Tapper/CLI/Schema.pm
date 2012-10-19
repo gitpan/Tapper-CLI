@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::Schema::AUTHORITY = 'cpan:AMD';
 }
 {
-  $Tapper::CLI::Schema::VERSION = '4.0.1';
+  $Tapper::CLI::Schema::VERSION = '4.1.0';
 }
 
 use 5.010;

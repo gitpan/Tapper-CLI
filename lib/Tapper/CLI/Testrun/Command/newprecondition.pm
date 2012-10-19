@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::Testrun::Command::newprecondition::AUTHORITY = 'cpan:AMD';
 }
 {
-  $Tapper::CLI::Testrun::Command::newprecondition::VERSION = '4.0.1';
+  $Tapper::CLI::Testrun::Command::newprecondition::VERSION = '4.1.0';
 }
 
 use 5.010;
@@ -112,7 +112,7 @@ sub new_precondition
 
 
         foreach my $id (@ids) {
-                my $precondition = model('TestrunDB')->resultset('Precondition')->search({id => $id})->first;
+                my $precondition = model('TestrunDB')->resultset('Precondition')->search({id => $id}, {rows => 1})->first;
                 print $opt->{verbose} ? $precondition->to_string : $id, "\n";
 
         }

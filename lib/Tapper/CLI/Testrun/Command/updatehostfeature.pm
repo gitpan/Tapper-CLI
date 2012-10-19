@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::Testrun::Command::updatehostfeature::AUTHORITY = 'cpan:AMD';
 }
 {
-  $Tapper::CLI::Testrun::Command::updatehostfeature::VERSION = '4.0.1';
+  $Tapper::CLI::Testrun::Command::updatehostfeature::VERSION = '4.1.0';
 }
 
 use 5.010;
@@ -70,7 +70,7 @@ sub update_hostfeature
         my ($self, $opt, $args) = @_;
 
         my $hostname = $opt->{hostname};
-        my $host     = model('TestrunDB')->resultset('Host')->search({name => $hostname})->first;
+        my $host     = model('TestrunDB')->resultset('Host')->search({name => $hostname}, {rows => 1})->first;
 
         if (not $host) {
                 say STDERR "No such host: $hostname";
@@ -80,7 +80,8 @@ sub update_hostfeature
         my $hostfeature;
 
         $hostfeature = model('TestrunDB')->resultset('HostFeature')->search({ host_id => $host->id,
-                                                                              entry   => $opt->{entry}}
+                                                                              entry   => $opt->{entry}},
+                                                                            {rows => 1}
                                                                            )->first;
         if ($hostfeature and $hostfeature->id) {
                 if (defined $opt->{value}) {

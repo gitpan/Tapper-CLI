@@ -1,4 +1,4 @@
-user_id: 1 # anton
+owner_id: 1 # anton
 persist: 1
 event: testrun_finished
 filter: testrun('id') == 43

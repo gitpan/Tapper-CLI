@@ -1,0 +1,18 @@
+User experience is improved when all commands of a tool behave
+similar. To ensure this kind of consistency, this file lists guidelines
+that all commands need to honor.
+
+* --verbose or -v gives more verbose output
+* --quiet guarantees silence for success
+* calling without parameters gives the help text
+** does not apply to all -list command (obviously)
+** if a command can work with defaults it still requires --default or -d 
+   to fulfill the "no empty parameter list" requirement
+* help messages SHOULD distinguish between required arguments and
+  optional arguments
+* All command SHOULD prevent unknown options
+** The code for this should be imported and not duplicated as it is now
+* CLI manipulates testruns, preconditions, hosts, queues, scenarios and
+  testplans. For each of these elements a "new", "update" and "delete" should
+  exist. The actual work should be done in associated Tapper::Cmd modules to make
+  it reusable for WebGUI.

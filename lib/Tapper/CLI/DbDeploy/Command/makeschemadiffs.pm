@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::DbDeploy::Command::makeschemadiffs::AUTHORITY = 'cpan:AMD';
 }
 {
-  $Tapper::CLI::DbDeploy::Command::makeschemadiffs::VERSION = '4.0.1';
+  $Tapper::CLI::DbDeploy::Command::makeschemadiffs::VERSION = '4.1.0';
 }
 
 use 5.010;
@@ -85,7 +85,7 @@ sub run
         my $fromversion = $opt->{fromversion};
         my $upgradedir  = $opt->{upgradedir} || module_dir('Tapper::Schema');
         model($db)->upgrade_directory($upgradedir) if $upgradedir;
-        model($db)->create_ddl_dir([qw/MySQL SQLite/],
+        model($db)->create_ddl_dir([qw/MySQL SQLite PostgreSQL/],
                                    undef,
                                    ($upgradedir || model($db)->upgrade_directory),
                                    $fromversion

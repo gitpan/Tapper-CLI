@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::Testrun::Command::updatehost::AUTHORITY = 'cpan:AMD';
 }
 {
-  $Tapper::CLI::Testrun::Command::updatehost::VERSION = '4.0.1';
+  $Tapper::CLI::Testrun::Command::updatehost::VERSION = '4.1.0';
 }
 
 use 5.010;
@@ -78,7 +78,7 @@ sub validate_args
         }
 
         if ($opt->{name} and not $opt->{id}) {
-                my $host = model('TestrunDB')->resultset('Host')->search({name => $opt->{name}})->first;
+                my $host = model('TestrunDB')->resultset('Host')->search({name => $opt->{name}}, {rows => 1})->first;
                 if (not  $host) {
                         warn "No such host: $opt->{name}";
                         die $self->usage->text;
@@ -120,7 +120,7 @@ sub add_queues
                 }
                 my $queue_host = model('TestrunDB')->resultset('QueueHost')->new({
                                                                                   host_id  => $host->id,
-                                                                                  queue_id => $queue_rs->first->id,
+                                                                                  queue_id => $queue_rs->search({}, {rows => 1})->first->id,
                                                                                  });
                 $queue_host->insert();
         }
@@ -138,7 +138,7 @@ sub del_queues
                         }
                         return;
                 }
-                my $queue = model('TestrunDB')->resultset('Queue')->search({name => $queue})->first;
+                my $queue = model('TestrunDB')->resultset('Queue')->search({name => $queue}, {rows => 1})->first;
                 if (not $queue) {
                         warn "No such queue $queue - ignoring";
                         next QUEUE;

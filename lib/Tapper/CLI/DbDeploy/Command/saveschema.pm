@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::DbDeploy::Command::saveschema::AUTHORITY = 'cpan:AMD';
 }
 {
-  $Tapper::CLI::DbDeploy::Command::saveschema::VERSION = '4.0.1';
+  $Tapper::CLI::DbDeploy::Command::saveschema::VERSION = '4.1.0';
 }
 
 use 5.010;
@@ -84,7 +84,7 @@ sub run
         my $db         = $opt->{db};
         my $upgradedir = $opt->{upgradedir};
         model($db)->upgrade_directory($upgradedir) if $upgradedir;
-        model($db)->create_ddl_dir([qw/MySQL SQLite/],
+        model($db)->create_ddl_dir([qw/MySQL SQLite PostgreSQL/],
                                    undef,
                                    ($upgradedir || model($db)->upgrade_directory)
                                   );

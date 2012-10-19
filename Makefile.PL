@@ -25,9 +25,9 @@ my %WriteMakefileArgs = (
   "DISTNAME" => "Tapper-CLI",
   "EXE_FILES" => [
     "bin/tapper-api",
-    "bin/tapper-db-deploy",
     "bin/tapper",
-    "bin/tapper-testrun"
+    "bin/tapper-testrun",
+    "bin/tapper-db-deploy"
   ],
   "LICENSE" => "open_source",
   "NAME" => "Tapper::CLI",
@@ -43,6 +43,7 @@ my %WriteMakefileArgs = (
     "File::Slurp" => 0,
     "IO::Socket" => 0,
     "Moose" => 0,
+    "Tapper::Cmd::Cobbler" => 0,
     "Tapper::Cmd::Notification" => 0,
     "Tapper::Cmd::Precondition" => 0,
     "Tapper::Cmd::Queue" => 0,
@@ -57,6 +58,7 @@ my %WriteMakefileArgs = (
     "Tapper::Schema" => 0,
     "Tapper::Schema::ReportsDB" => 0,
     "Tapper::Schema::TestrunDB" => 0,
+    "Tapper::Testplan::Generator" => 0,
     "Tapper::Testplan::Reporter" => 0,
     "Template" => 0,
     "Try::Tiny" => 0,
@@ -67,7 +69,7 @@ my %WriteMakefileArgs = (
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "4.0.1",
+  "VERSION" => "4.1.0",
   "test" => {
     "TESTS" => "t/*.t"
   }

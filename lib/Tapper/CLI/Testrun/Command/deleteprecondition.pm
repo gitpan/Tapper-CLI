@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::Testrun::Command::deleteprecondition::AUTHORITY = 'cpan:AMD';
 }
 {
-  $Tapper::CLI::Testrun::Command::deleteprecondition::VERSION = '4.0.1';
+  $Tapper::CLI::Testrun::Command::deleteprecondition::VERSION = '4.1.0';
 }
 
 use strict;

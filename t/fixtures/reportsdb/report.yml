@@ -1,5 +1,15 @@
 ---
 
+# -------------------- owners
+
+- schema: Owner
+  name: sschwigo
+  data:
+    id: 1
+    name: Steffen Schwigon
+    login: sschwigo
+    password: verysecret
+
 # ---------- Suite ----------
 
 - schema: Suite

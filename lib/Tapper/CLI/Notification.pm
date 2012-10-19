@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::Notification::AUTHORITY = 'cpan:AMD';
 }
 {
-  $Tapper::CLI::Notification::VERSION = '4.0.1';
+  $Tapper::CLI::Notification::VERSION = '4.1.0';
 }
 
 use 5.010;
@@ -17,16 +17,17 @@ use Tapper::Cmd::Notification;
 sub notificationnew
 {
         my ($c) = @_;
-        $c->getopt( 'file|f=s', 'user|u=s','quiet|q', 'help|?' );
+        $c->getopt( 'file|f=s', 'user|u=s','quiet|q', 'help|?', 'verbose|v' );
 
         if (not %{$c->options} or $c->options->{help} ) {
-                say STDERR "Usage: $0 notification-new --file=filename [ --user=login ] [ --quiet ]";
+                say STDERR "Usage: $0 notification-add --file=filename [ --user=login ] [ --quiet ]";
                 say STDERR "\n\  Required Arguments:";
-                say STDERR "\t--file\t\tname of file containing the notification subscriptions in YAML (required)";
+                say STDERR "        --file             name of file containing the notification subscriptions in YAML (required)";
                 say STDERR "\n  Optional arguments:";
-                say STDERR "\t--user\t\tset this user for all notification subscriptions (even if a different one is set in YAML)";
-                say STDERR "\t--quiet\t\tOnly return notification ids";
-                say STDERR "\t--help\t\tprint this help message and exit";
+                say STDERR "        --user             set this user for all notification subscriptions (even if a different one is set in YAML)";
+                say STDERR "        --verbose          Be chatty";
+                say STDERR "        --quiet            Stay silent when notification was added";
+                say STDERR "        --help             print this help message and exit";
                 exit -1;
         }
 
@@ -37,14 +38,16 @@ sub notificationnew
         my @subscriptions =  YAML::XS::LoadFile($c->options->{file});
         foreach my $subscription (@subscriptions) {
                 if ($user) {
-                        $subscription->{user_login} = $user;
-                        delete $subscription->{user_id};
+                        $subscription->{owner_login} = $user;
+                        delete $subscription->{owner_id};
                 }
                 push @ids, $cmd->add($subscription);
         }
         my $msg;
-        $msg  = "The notification subscriptions were registered with the following ids:" if not $c->options->{quiet};
-        $msg .= join ",", @ids;
+        if (not $c->options->{quiet}) {
+                $msg  = "The notification subscriptions were registered with the following ids:" if $c->options->{verbose};
+                $msg .= join ",", @ids;
+        }
         return $msg;
 }
 
@@ -71,11 +74,11 @@ sub notificationupdate
         if (not %{$c->options} or $c->options->{help} ) {
                 say STDERR "Usage: $0 notification-update --file=filename --id=id [ --quiet ]";
                 say STDERR "\n\  Required Arguments:";
-                say STDERR "\t--file\t\tname of file containing the notification subscriptions in YAML";
-                say STDERR "\t--id\t\tid of the notification subscriptions";
+                say STDERR "        --file             name of file containing the notification subscriptions in YAML";
+                say STDERR "        --id               id of the notification subscriptions";
                 say STDERR "\n  Optional arguments:";
-                say STDERR "\t--quiet\t\tonly return ids of updated notification subscriptions";
-                say STDERR "\t--help\t\tprint this help message and exit";
+                say STDERR "        --quiet            stay silent when notification was updated";
+                say STDERR "        --help             print this help message and exit";
                 exit -1;
         }
 
@@ -84,8 +87,10 @@ sub notificationupdate
         my $subscription =  YAML::XS::LoadFile($c->options->{file});
         my $id = $cmd->update($c->options->{id}, $subscription);
 
-        return "The notification subscription was updated:" unless $c->options->{quiet};
-        return $id;
+        if ( not $c->options->{quiet}) {
+                return $id;
+        }
+        return;
 }
 
 
@@ -97,10 +102,10 @@ sub notificationdel
         if (not %{$c->options} or $c->options->{help} ) {
                 say STDERR "Usage: $0 notification-del --id=id";
                 say STDERR "\n\  Required Arguments:";
-                say STDERR "\t--id\t\tDatabase ID of the notification subscription";
+                say STDERR "        --id               Database ID of the notification subscription";
                 say STDERR "\n  Optional arguments:";
-                say STDERR "\t--quiet\t\tStay silent when deleting succeeded";
-                say STDERR "\t--help\t\tprint this help message and exit";
+                say STDERR "        --quiet            Stay silent when deleting succeeded";
+                say STDERR "        --help             print this help message and exit";
                 exit -1;
         }
 
@@ -118,12 +123,13 @@ sub notificationdel
 sub setup
 {
         my ($c) = @_;
-        $c->register('notification-new', \&notificationnew, 'Register a new notification subscription');
+        $c->register('notification-add', \&notificationnew, 'Register a new notification subscription');
+        $c->register('notification-new', \&notificationnew, 'Alias for notification-add');
         $c->register('notification-list', \&notificationlist, 'Show all notification subscriptions');
         $c->register('notification-update', \&notificationupdate, 'Update an existing notification subscription');
         $c->register('notification-del', \&notificationdel, 'Delete an existing notification subscription');
         if ($c->can('group_commands')) {
-                $c->group_commands('Notification commands', 'notification-new', 'notification-list', 'notification-update', 'notification-del');
+                $c->group_commands('Notification commands', 'notification-add', 'notification-new', 'notification-list', 'notification-update', 'notification-del');
         }
         return;
 }

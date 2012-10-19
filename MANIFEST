@@ -1,4 +1,5 @@
 Changes
+Consistency
 LICENSE
 MANIFEST
 META.json
@@ -14,11 +15,13 @@ lib/Tapper/CLI.pm
 lib/Tapper/CLI/API.pm
 lib/Tapper/CLI/API/Command/download.pm
 lib/Tapper/CLI/API/Command/upload.pm
+lib/Tapper/CLI/Cobbler.pm
 lib/Tapper/CLI/DbDeploy.pm
 lib/Tapper/CLI/DbDeploy/Command/init.pm
 lib/Tapper/CLI/DbDeploy/Command/makeschemadiffs.pm
 lib/Tapper/CLI/DbDeploy/Command/saveschema.pm
 lib/Tapper/CLI/DbDeploy/Command/upgrade.pm
+lib/Tapper/CLI/Host.pm
 lib/Tapper/CLI/Notification.pm
 lib/Tapper/CLI/Schema.pm
 lib/Tapper/CLI/Testplan.pm
@@ -38,6 +41,7 @@ lib/Tapper/CLI/Testrun/Command/newprecondition.pm
 lib/Tapper/CLI/Testrun/Command/newqueue.pm
 lib/Tapper/CLI/Testrun/Command/newscenario.pm
 lib/Tapper/CLI/Testrun/Command/newtestplan.pm
+lib/Tapper/CLI/Testrun/Command/renamequeue.pm
 lib/Tapper/CLI/Testrun/Command/rerun.pm
 lib/Tapper/CLI/Testrun/Command/show.pm
 lib/Tapper/CLI/Testrun/Command/updatehost.pm
