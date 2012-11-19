@@ -1,9 +1,9 @@
 package Tapper::CLI::API::Command::download;
 BEGIN {
-  $Tapper::CLI::API::Command::download::AUTHORITY = 'cpan:AMD';
+  $Tapper::CLI::API::Command::download::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::API::Command::download::VERSION = '4.1.0';
+  $Tapper::CLI::API::Command::download::VERSION = '4.1.1';
 }
 
 use 5.010;

@@ -1,9 +1,9 @@
 package Tapper::CLI::DbDeploy;
 BEGIN {
-  $Tapper::CLI::DbDeploy::AUTHORITY = 'cpan:AMD';
+  $Tapper::CLI::DbDeploy::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::DbDeploy::VERSION = '4.1.0';
+  $Tapper::CLI::DbDeploy::VERSION = '4.1.1';
 }
 
 use strict;

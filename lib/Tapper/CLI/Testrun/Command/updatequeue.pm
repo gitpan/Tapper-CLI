@@ -1,9 +1,9 @@
 package Tapper::CLI::Testrun::Command::updatequeue;
 BEGIN {
-  $Tapper::CLI::Testrun::Command::updatequeue::AUTHORITY = 'cpan:AMD';
+  $Tapper::CLI::Testrun::Command::updatequeue::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::Testrun::Command::updatequeue::VERSION = '4.1.0';
+  $Tapper::CLI::Testrun::Command::updatequeue::VERSION = '4.1.1';
 }
 
 use 5.010;

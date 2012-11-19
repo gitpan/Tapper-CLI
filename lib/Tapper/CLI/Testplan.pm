@@ -1,9 +1,9 @@
 package Tapper::CLI::Testplan;
 BEGIN {
-  $Tapper::CLI::Testplan::AUTHORITY = 'cpan:AMD';
+  $Tapper::CLI::Testplan::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::Testplan::VERSION = '4.1.0';
+  $Tapper::CLI::Testplan::VERSION = '4.1.1';
 }
 
 use 5.010;
@@ -173,7 +173,6 @@ sub setup
         return;
 }
 
-
 1; # End of Tapper::CLI
 
 __END__
@@ -226,18 +225,6 @@ Apply all testplans choosen by Taskjuggler.
 =head2 setup
 
 Initialize the testplan functions for tapper CLI
-
-=head1 AUTHOR
-
-AMD OSRC Tapper Team, C<< <tapper at amd64.org> >>
-
-=head1 BUGS
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2008-2011 AMD OSRC Tapper Team, all rights reserved.
-
-This program is released under the following license: freebsd
 
 =head1 AUTHOR
 

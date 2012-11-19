@@ -1,9 +1,9 @@
 package Tapper::CLI::API::Command::upload;
 BEGIN {
-  $Tapper::CLI::API::Command::upload::AUTHORITY = 'cpan:AMD';
+  $Tapper::CLI::API::Command::upload::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::API::Command::upload::VERSION = '4.1.0';
+  $Tapper::CLI::API::Command::upload::VERSION = '4.1.1';
 }
 
 use 5.010;

@@ -1,9 +1,9 @@
 package Tapper::CLI::Host;
 BEGIN {
-  $Tapper::CLI::Host::AUTHORITY = 'cpan:AMD';
+  $Tapper::CLI::Host::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::Host::VERSION = '4.1.0';
+  $Tapper::CLI::Host::VERSION = '4.1.1';
 }
 
 use 5.010;
@@ -314,7 +314,6 @@ sub setup
         return;
 }
 
-
 1; # End of Tapper::CLI
 
 __END__
@@ -379,18 +378,6 @@ Bind given hosts to given queues.
 =head2 setup
 
 Initialize the testplan functions for tapper CLI
-
-=head1 AUTHOR
-
-AMD OSRC Tapper Team, C<< <tapper at amd64.org> >>
-
-=head1 BUGS
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2008-2011 AMD OSRC Tapper Team, all rights reserved.
-
-This program is released under the following license: freebsd
 
 =head1 AUTHOR
 

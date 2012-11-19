@@ -1,9 +1,9 @@
 package Tapper::CLI::Testrun;
 BEGIN {
-  $Tapper::CLI::Testrun::AUTHORITY = 'cpan:AMD';
+  $Tapper::CLI::Testrun::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::Testrun::VERSION = '4.1.0';
+  $Tapper::CLI::Testrun::VERSION = '4.1.1';
 }
 
 use strict;

@@ -1,9 +1,9 @@
 package Tapper::CLI::DbDeploy::Command::init;
 BEGIN {
-  $Tapper::CLI::DbDeploy::Command::init::AUTHORITY = 'cpan:AMD';
+  $Tapper::CLI::DbDeploy::Command::init::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::DbDeploy::Command::init::VERSION = '4.1.0';
+  $Tapper::CLI::DbDeploy::Command::init::VERSION = '4.1.1';
 }
 
 use 5.010;
@@ -14,6 +14,7 @@ use warnings;
 use parent 'App::Cmd::Command';
 
 use Tapper::CLI::DbDeploy;
+use Tapper::Cmd::DbDeploy;
 use Data::Dumper;
 use Tapper::Schema::TestrunDB;
 use Tapper::Schema::ReportsDB;
@@ -64,69 +65,12 @@ sub validate_args {
         die $self->usage->text;
 }
 
-sub insert_initial_values
-{
-        my ($schema, $db) = @_;
-
-        if ($db eq 'TestrunDB')
-        {
-                # ---------- Topic ----------
-
-                # official topics
-                my %topic_description = %Tapper::Schema::TestrunDB::Result::Topic::topic_description;
-
-                foreach my $topic_name(keys %topic_description) {
-                        my $topic = $schema->resultset('Topic')->new
-                            ({ name        => $topic_name,
-                               description => $topic_description{$topic_name},
-                             });
-                        $topic->insert;
-                }
-                my $queue = $schema->resultset('Queue')->new
-                  ({ name     => 'AdHoc',
-                     priority => 1000,
-                     active   => 1,
-                   });
-                $queue->insert;
-
-        }
-}
-
-sub init_db
-{
-        my ($self, $db) = @_;
-
-        local $| =1;
-
-        my $dsn  = Tapper::Config->subconfig->{database}{$db}{dsn};
-        my $user = Tapper::Config->subconfig->{database}{$db}{username};
-        my $pw   = Tapper::Config->subconfig->{database}{$db}{password};
-
-        # ----- really? -----
-        print "dsn = $dsn\n";
-        print "Really delete all existing content and initialize from scratch (y/N)? ";
-        read STDIN, my $answer, 1;
-        do { print "Quit.\n"; return } unless lc $answer eq 'y';
-
-        # ----- delete sqlite file -----
-        if ($dsn =~ /dbi:SQLite:dbname/) {
-                my ($tmpfname) = $dsn =~ m,dbi:SQLite:dbname=([\w./]+),i;
-                unlink $tmpfname;
-        }
-
-        my $schema;
-        $schema = Tapper::Schema::TestrunDB->connect ($dsn, $user, $pw) if $db eq 'TestrunDB';
-        $schema = Tapper::Schema::ReportsDB->connect ($dsn, $user, $pw) if $db eq 'ReportsDB';
-        $schema->deploy({ add_drop_table => 1 }); # may fail, does not provide correct order to drop tables
-        insert_initial_values($schema, $db);
-}
-
 sub run
 {
         my ($self, $opt, $args) = @_;
 
-        my $db  = $opt->{db};
-        $self->init_db($db);
+        my $cmd = Tapper::Cmd::DbDeploy->new;
+        $cmd->dbdeploy($opt->{db});
 }
 
 

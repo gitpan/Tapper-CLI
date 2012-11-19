@@ -1,9 +1,9 @@
 package Tapper::CLI::API;
 BEGIN {
-  $Tapper::CLI::API::AUTHORITY = 'cpan:AMD';
+  $Tapper::CLI::API::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::API::VERSION = '4.1.0';
+  $Tapper::CLI::API::VERSION = '4.1.1';
 }
 
 use strict;

@@ -1,9 +1,9 @@
 package Tapper::CLI::Testrun::Command::delete;
 BEGIN {
-  $Tapper::CLI::Testrun::Command::delete::AUTHORITY = 'cpan:AMD';
+  $Tapper::CLI::Testrun::Command::delete::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::Testrun::Command::delete::VERSION = '4.1.0';
+  $Tapper::CLI::Testrun::Command::delete::VERSION = '4.1.1';
 }
 
 use strict;

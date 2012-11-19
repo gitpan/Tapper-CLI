@@ -1,9 +1,9 @@
 package Tapper::CLI::Testrun::Command::newscenario;
 BEGIN {
-  $Tapper::CLI::Testrun::Command::newscenario::AUTHORITY = 'cpan:AMD';
+  $Tapper::CLI::Testrun::Command::newscenario::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::Testrun::Command::newscenario::VERSION = '4.1.0';
+  $Tapper::CLI::Testrun::Command::newscenario::VERSION = '4.1.1';
 }
 
 use 5.010;

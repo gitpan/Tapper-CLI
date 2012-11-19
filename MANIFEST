@@ -1,7 +1,7 @@
 Changes
-Consistency
 LICENSE
 MANIFEST
+MANIFEST.SKIP
 META.json
 META.yml
 Makefile.PL
@@ -22,6 +22,7 @@ lib/Tapper/CLI/DbDeploy/Command/makeschemadiffs.pm
 lib/Tapper/CLI/DbDeploy/Command/saveschema.pm
 lib/Tapper/CLI/DbDeploy/Command/upgrade.pm
 lib/Tapper/CLI/Host.pm
+lib/Tapper/CLI/Init.pm
 lib/Tapper/CLI/Notification.pm
 lib/Tapper/CLI/Schema.pm
 lib/Tapper/CLI/Testplan.pm

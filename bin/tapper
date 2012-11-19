@@ -1,6 +1,6 @@
 #! /usr/bin/perl
 # PODNAME: tapper
-# ABSTRACT: cmdline frontend to Tapper management - the future Platzhirsch
+# ABSTRACT: Tapper - primary cmdline frontend - the future Platzhirsch
 
 use App::Rad;
 use Tapper::CLI::Notification;
@@ -9,12 +9,11 @@ use Tapper::CLI::Schema;
 use Tapper::CLI::User;
 use Tapper::CLI::Host;
 use Tapper::CLI::Cobbler;
-
+use Tapper::CLI::Init;
 
 use strict;
 use warnings;
 use 5.010;
-
 
 sub setup
 {
@@ -25,11 +24,10 @@ sub setup
         Tapper::CLI::User::setup($c);
         Tapper::CLI::Host::setup($c);
         Tapper::CLI::Cobbler::setup($c);
+        Tapper::CLI::Init::setup($c);
 }
 
-
 App::Rad->run();
-
 
 __END__
 =pod
@@ -38,7 +36,7 @@ __END__
 
 =head1 NAME
 
-tapper - cmdline frontend to Tapper management - the future Platzhirsch
+tapper - Tapper - primary cmdline frontend - the future Platzhirsch
 
 =head1 AUTHOR
 

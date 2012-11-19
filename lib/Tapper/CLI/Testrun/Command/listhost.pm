@@ -1,9 +1,9 @@
 package Tapper::CLI::Testrun::Command::listhost;
 BEGIN {
-  $Tapper::CLI::Testrun::Command::listhost::AUTHORITY = 'cpan:AMD';
+  $Tapper::CLI::Testrun::Command::listhost::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::Testrun::Command::listhost::VERSION = '4.1.0';
+  $Tapper::CLI::Testrun::Command::listhost::VERSION = '4.1.1';
 }
 
 use 5.010;

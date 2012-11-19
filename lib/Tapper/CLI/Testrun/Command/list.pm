@@ -1,9 +1,9 @@
 package Tapper::CLI::Testrun::Command::list;
 BEGIN {
-  $Tapper::CLI::Testrun::Command::list::AUTHORITY = 'cpan:AMD';
+  $Tapper::CLI::Testrun::Command::list::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::Testrun::Command::list::VERSION = '4.1.0';
+  $Tapper::CLI::Testrun::Command::list::VERSION = '4.1.1';
 }
 
 use 5.010;

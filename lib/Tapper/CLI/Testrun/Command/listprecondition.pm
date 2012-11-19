@@ -1,9 +1,9 @@
 package Tapper::CLI::Testrun::Command::listprecondition;
 BEGIN {
-  $Tapper::CLI::Testrun::Command::listprecondition::AUTHORITY = 'cpan:AMD';
+  $Tapper::CLI::Testrun::Command::listprecondition::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::Testrun::Command::listprecondition::VERSION = '4.1.0';
+  $Tapper::CLI::Testrun::Command::listprecondition::VERSION = '4.1.1';
 }
 
 use 5.010;

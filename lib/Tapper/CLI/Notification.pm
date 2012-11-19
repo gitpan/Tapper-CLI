@@ -1,9 +1,9 @@
 package Tapper::CLI::Notification;
 BEGIN {
-  $Tapper::CLI::Notification::AUTHORITY = 'cpan:AMD';
+  $Tapper::CLI::Notification::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::Notification::VERSION = '4.1.0';
+  $Tapper::CLI::Notification::VERSION = '4.1.1';
 }
 
 use 5.010;
@@ -134,7 +134,6 @@ sub setup
         return;
 }
 
-
 1; # End of Tapper::CLI
 
 __END__
@@ -198,18 +197,6 @@ Delete an existing notification subscription.
 =head2 setup
 
 Initialize the notification functions for tapper CLI
-
-=head1 AUTHOR
-
-AMD OSRC Tapper Team, C<< <tapper at amd64.org> >>
-
-=head1 BUGS
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2008-2011 AMD OSRC Tapper Team, all rights reserved.
-
-This program is released under the following license: freebsd
 
 =head1 AUTHOR
 

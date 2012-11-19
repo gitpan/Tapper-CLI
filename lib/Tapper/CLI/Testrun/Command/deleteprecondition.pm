@@ -1,9 +1,9 @@
 package Tapper::CLI::Testrun::Command::deleteprecondition;
 BEGIN {
-  $Tapper::CLI::Testrun::Command::deleteprecondition::AUTHORITY = 'cpan:AMD';
+  $Tapper::CLI::Testrun::Command::deleteprecondition::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::Testrun::Command::deleteprecondition::VERSION = '4.1.0';
+  $Tapper::CLI::Testrun::Command::deleteprecondition::VERSION = '4.1.1';
 }
 
 use strict;

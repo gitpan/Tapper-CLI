@@ -1,9 +1,9 @@
 package Tapper::CLI::Testrun::Command::freehost;
 BEGIN {
-  $Tapper::CLI::Testrun::Command::freehost::AUTHORITY = 'cpan:AMD';
+  $Tapper::CLI::Testrun::Command::freehost::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::Testrun::Command::freehost::VERSION = '4.1.0';
+  $Tapper::CLI::Testrun::Command::freehost::VERSION = '4.1.1';
 }
 
 use 5.010;

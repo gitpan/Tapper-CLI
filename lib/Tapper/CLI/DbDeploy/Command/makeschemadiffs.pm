@@ -1,9 +1,9 @@
 package Tapper::CLI::DbDeploy::Command::makeschemadiffs;
 BEGIN {
-  $Tapper::CLI::DbDeploy::Command::makeschemadiffs::AUTHORITY = 'cpan:AMD';
+  $Tapper::CLI::DbDeploy::Command::makeschemadiffs::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::DbDeploy::Command::makeschemadiffs::VERSION = '4.1.0';
+  $Tapper::CLI::DbDeploy::Command::makeschemadiffs::VERSION = '4.1.1';
 }
 
 use 5.010;

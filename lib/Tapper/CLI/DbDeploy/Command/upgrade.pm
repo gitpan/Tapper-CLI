@@ -1,9 +1,9 @@
 package Tapper::CLI::DbDeploy::Command::upgrade;
 BEGIN {
-  $Tapper::CLI::DbDeploy::Command::upgrade::AUTHORITY = 'cpan:AMD';
+  $Tapper::CLI::DbDeploy::Command::upgrade::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::DbDeploy::Command::upgrade::VERSION = '4.1.0';
+  $Tapper::CLI::DbDeploy::Command::upgrade::VERSION = '4.1.1';
 }
 
 use 5.010;

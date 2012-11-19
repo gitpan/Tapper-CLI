@@ -1,5 +1,8 @@
 Revision history for Tapper-CLI
 
+4.1.1     2012-11-19
+        - new command: 'tapper init' to initialize a $HOME/.tapper
+
 4.1.0     2012-10-19
         * PostgreSQL support
         - [FIX] slow first() usage

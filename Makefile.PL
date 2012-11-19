@@ -44,6 +44,8 @@ my %WriteMakefileArgs = (
     "IO::Socket" => 0,
     "Moose" => 0,
     "Tapper::Cmd::Cobbler" => 0,
+    "Tapper::Cmd::DbDeploy" => 0,
+    "Tapper::Cmd::Init" => 0,
     "Tapper::Cmd::Notification" => 0,
     "Tapper::Cmd::Precondition" => 0,
     "Tapper::Cmd::Queue" => 0,
@@ -69,7 +71,7 @@ my %WriteMakefileArgs = (
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "4.1.0",
+  "VERSION" => "4.1.1",
   "test" => {
     "TESTS" => "t/*.t"
   }

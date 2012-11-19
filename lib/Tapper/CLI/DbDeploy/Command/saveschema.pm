@@ -1,9 +1,9 @@
 package Tapper::CLI::DbDeploy::Command::saveschema;
 BEGIN {
-  $Tapper::CLI::DbDeploy::Command::saveschema::AUTHORITY = 'cpan:AMD';
+  $Tapper::CLI::DbDeploy::Command::saveschema::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::DbDeploy::Command::saveschema::VERSION = '4.1.0';
+  $Tapper::CLI::DbDeploy::Command::saveschema::VERSION = '4.1.1';
 }
 
 use 5.010;

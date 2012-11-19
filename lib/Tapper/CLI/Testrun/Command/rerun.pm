@@ -1,9 +1,9 @@
 package Tapper::CLI::Testrun::Command::rerun;
 BEGIN {
-  $Tapper::CLI::Testrun::Command::rerun::AUTHORITY = 'cpan:AMD';
+  $Tapper::CLI::Testrun::Command::rerun::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::Testrun::Command::rerun::VERSION = '4.1.0';
+  $Tapper::CLI::Testrun::Command::rerun::VERSION = '4.1.1';
 }
 
 use 5.010;
