@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::Testrun::Command::delete::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::Testrun::Command::delete::VERSION = '4.1.1';
+  $Tapper::CLI::Testrun::Command::delete::VERSION = '4.1.2';
 }
 
 use strict;

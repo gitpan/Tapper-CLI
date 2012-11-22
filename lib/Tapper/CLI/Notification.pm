@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::Notification::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::Notification::VERSION = '4.1.1';
+  $Tapper::CLI::Notification::VERSION = '4.1.2';
 }
 
 use 5.010;

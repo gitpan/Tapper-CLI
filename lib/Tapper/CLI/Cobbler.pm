@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::Cobbler::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::Cobbler::VERSION = '4.1.1';
+  $Tapper::CLI::Cobbler::VERSION = '4.1.2';
 }
 
 use 5.010;

@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::API::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::API::VERSION = '4.1.1';
+  $Tapper::CLI::API::VERSION = '4.1.2';
 }
 
 use strict;

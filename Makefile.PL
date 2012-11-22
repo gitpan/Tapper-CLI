@@ -36,7 +36,6 @@ my %WriteMakefileArgs = (
     "App::Cmd::Command" => 0,
     "App::Rad" => 0,
     "Compress::Bzip2" => 0,
-    "Cwd" => 0,
     "Data::Dumper" => 0,
     "DateTime::Format::Natural" => 0,
     "File::ShareDir" => 0,
@@ -56,7 +55,6 @@ my %WriteMakefileArgs = (
     "Tapper::Cmd::User" => 0,
     "Tapper::Config" => 0,
     "Tapper::Model" => 0,
-    "Tapper::Reports::DPath::TT" => 0,
     "Tapper::Schema" => 0,
     "Tapper::Schema::ReportsDB" => 0,
     "Tapper::Schema::TestrunDB" => 0,
@@ -71,7 +69,7 @@ my %WriteMakefileArgs = (
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "4.1.1",
+  "VERSION" => "4.1.2",
   "test" => {
     "TESTS" => "t/*.t"
   }

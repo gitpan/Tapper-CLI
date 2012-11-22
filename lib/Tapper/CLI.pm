@@ -1,11 +1,11 @@
 package Tapper::CLI;
-# git description: v4.1.0-6-g3672475
+# git description: v4.1.1-3-g3a50530
 
 BEGIN {
   $Tapper::CLI::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::VERSION = '4.1.1';
+  $Tapper::CLI::VERSION = '4.1.2';
 }
 # ABSTRACT: Tapper - tapper-* commandline tools
 

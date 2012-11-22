@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::Testrun::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::Testrun::VERSION = '4.1.1';
+  $Tapper::CLI::Testrun::VERSION = '4.1.2';
 }
 
 use strict;

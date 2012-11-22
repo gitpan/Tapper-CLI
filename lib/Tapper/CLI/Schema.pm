@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::Schema::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::Schema::VERSION = '4.1.1';
+  $Tapper::CLI::Schema::VERSION = '4.1.2';
 }
 
 use 5.010;

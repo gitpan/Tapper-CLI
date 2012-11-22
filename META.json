@@ -25,7 +25,6 @@
             "App::Cmd::Command" : "0",
             "App::Rad" : "0",
             "Compress::Bzip2" : "0",
-            "Cwd" : "0",
             "Data::Dumper" : "0",
             "DateTime::Format::Natural" : "0",
             "File::ShareDir" : "0",
@@ -45,7 +44,6 @@
             "Tapper::Cmd::User" : "0",
             "Tapper::Config" : "0",
             "Tapper::Model" : "0",
-            "Tapper::Reports::DPath::TT" : "0",
             "Tapper::Schema" : "0",
             "Tapper::Schema::ReportsDB" : "0",
             "Tapper::Schema::TestrunDB" : "0",
@@ -86,7 +84,7 @@
          "web" : "http://github.com/tapper/Tapper-CLI"
       }
    },
-   "version" : "4.1.1",
+   "version" : "4.1.2",
    "x_Dist_Zilla" : {
       "plugins" : [
          {

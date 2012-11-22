@@ -41,7 +41,6 @@ lib/Tapper/CLI/Testrun/Command/newhost.pm
 lib/Tapper/CLI/Testrun/Command/newprecondition.pm
 lib/Tapper/CLI/Testrun/Command/newqueue.pm
 lib/Tapper/CLI/Testrun/Command/newscenario.pm
-lib/Tapper/CLI/Testrun/Command/newtestplan.pm
 lib/Tapper/CLI/Testrun/Command/renamequeue.pm
 lib/Tapper/CLI/Testrun/Command/rerun.pm
 lib/Tapper/CLI/Testrun/Command/show.pm

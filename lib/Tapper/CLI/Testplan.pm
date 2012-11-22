@@ -3,15 +3,18 @@ BEGIN {
   $Tapper::CLI::Testplan::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::Testplan::VERSION = '4.1.1';
+  $Tapper::CLI::Testplan::VERSION = '4.1.2';
 }
+# ABSTRACT: Handle testplans
 
 use 5.010;
 use warnings;
 use strict;
 
+# TODO: Should Tapper::Testplan::* better be in Tapper::Cmd::Testplan?
 use Tapper::Testplan::Reporter;
 use Tapper::Testplan::Generator;
+use Tapper::Cmd::Testplan;
 use Tapper::Model 'model';
 
 
@@ -159,6 +162,32 @@ sub testplan_tj_generate
 }
 
 
+sub testplannew
+{
+        my ($c) = @_;
+        $c->getopt( 'include|I=s@', 'name=s', 'path=s', 'file=s', 'D=s%', 'dryrun|n', 'guide|g', 'quiet|q', 'verbose|v', 'help|?' );
+
+        my $opt = $c->options;
+
+        if ( $opt->{help} or not $opt->{file}) {
+                say STDERR "Usage: $0 testplan-new --file=s  [ -n ] [ -v ] [ -Dkey=value ] [ --path=s ] [ --name=s ] [ --include=s ]*";
+                say STDERR "";
+                say STDERR "    --verbose    Show more progress output.";
+                say STDERR "    --quiet      Only show testplan ids, suppress path, name and testrun ids.";
+                say STDERR "    --help       Print this help message and exit.";
+                exit -1;
+        }
+
+        die "Testplan file needed\n" if not $opt->{file};
+        die "Testplan file @{[ $opt->{file} ]} does not exist"  if not -e $opt->{file};
+        die "Testplan file @{[ $opt->{file} ]} is not readable" if not -r $opt->{file};
+
+        my $cmd = Tapper::Cmd::Testplan->new;
+        $cmd->testplannew($opt);
+        return;
+}
+
+
 
 sub setup
 {
@@ -167,6 +196,7 @@ sub setup
         $c->register('testplan-list', \&testplanlist, 'List testplans matching a given pattern');
         $c->register('testplan-tj-send', \&testplan_tj_send, 'Send all testplan reports that are due according to taskjuggler plan');
         $c->register('testplan-tj-generate', \&testplan_tj_generate, 'Apply all testplans that are due according to taskjuggler plan');
+        $c->register('testplan-new', \&testplannew, 'Create new testplan instance from file');
         if ($c->can('group_commands')) {
                 $c->group_commands('Testplan commands', 'testplan-send', 'testplan-list', 'testplan-tj-send', 'testplan-tj-generate');
         }
@@ -182,7 +212,7 @@ __END__
 
 =head1 NAME
 
-Tapper::CLI::Testplan
+Tapper::CLI::Testplan - Handle testplans
 
 =head1 SYNOPSIS
 
@@ -221,6 +251,10 @@ Send all testplans reports choosen by Taskjuggler.
 =head2 testplan_tj_generate
 
 Apply all testplans choosen by Taskjuggler.
+
+=head2 testplannew
+
+Create new testplan instance from file.
 
 =head2 setup
 

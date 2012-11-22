@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::DbDeploy::Command::upgrade::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::DbDeploy::Command::upgrade::VERSION = '4.1.1';
+  $Tapper::CLI::DbDeploy::Command::upgrade::VERSION = '4.1.2';
 }
 
 use 5.010;

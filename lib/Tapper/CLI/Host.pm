@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::Host::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::Host::VERSION = '4.1.1';
+  $Tapper::CLI::Host::VERSION = '4.1.2';
 }
 
 use 5.010;
