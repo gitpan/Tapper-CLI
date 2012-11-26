@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::DbDeploy::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::DbDeploy::VERSION = '4.1.2';
+  $Tapper::CLI::DbDeploy::VERSION = '4.1.3';
 }
 
 use strict;
@@ -52,6 +52,7 @@ sub execute_command
 1;
 
 __END__
+
 =pod
 
 =encoding utf-8
@@ -73,4 +74,3 @@ This is free software, licensed under:
   The (two-clause) FreeBSD License
 
 =cut
-

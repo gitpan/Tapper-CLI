@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::DbDeploy::Command::saveschema::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::DbDeploy::Command::saveschema::VERSION = '4.1.2';
+  $Tapper::CLI::DbDeploy::Command::saveschema::VERSION = '4.1.3';
 }
 
 use 5.010;
@@ -95,6 +95,7 @@ sub run
 1;
 
 __END__
+
 =pod
 
 =encoding utf-8
@@ -116,4 +117,3 @@ This is free software, licensed under:
   The (two-clause) FreeBSD License
 
 =cut
-

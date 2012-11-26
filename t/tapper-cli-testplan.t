@@ -15,7 +15,7 @@ construct_fixture( schema  => testrundb_schema, fixture => 't/fixtures/testrundb
 # -----------------------------------------------------------------------------------------------------------------
 
 
-my $testplan_id = `$^X -Ilib bin/tapper-testrun newtestplan --file t/files/testplan/osrc/athlon/kernel.mpc  -It/files/testplan/`;
+my $testplan_id = `$^X -Ilib bin/tapper testplan-new --file t/files/testplan/osrc/athlon/kernel.mpc  -It/files/testplan/`;
 chomp $testplan_id;
 like($testplan_id, qr/^\d+$/, 'Testplan id is actually an id');
 
@@ -29,11 +29,11 @@ TODO: {
 }
 
 ### test --dryrun
-my $output = `$^X -Ilib bin/tapper-testrun newtestplan -n --file t/files/testplan/osrc/athlon/kernel.mpc  -It/files/testplan/`;
+my $output = `$^X -Ilib bin/tapper testplan-new -n --file t/files/testplan/osrc/athlon/kernel.mpc  -It/files/testplan/`;
 like($output, qr/SELF-DOCUMENTATION.*ZOMTEC.*preconditions:/s, "dryrun");
 
 ### test --guide (self-documentation)
-$output = `$^X -Ilib bin/tapper-testrun newtestplan -g --file t/files/testplan/osrc/athlon/kernel.mpc  -It/files/testplan/`;
+$output = `$^X -Ilib bin/tapper testplan-new -g --file t/files/testplan/osrc/athlon/kernel.mpc  -It/files/testplan/`;
 like($output, qr/SELF-DOCUMENTATION.*ZOMTEC.*/ms, "self-documentation");
 unlike($output, qr/preconditions:/ms, "self-documentation but no preconditions");
 unlike($output, qr/NOT PART OF SELF-DOCS/ms, "self-documentation but no normal comments");

@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::Testrun::Command::list::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::Testrun::Command::list::VERSION = '4.1.2';
+  $Tapper::CLI::Testrun::Command::list::VERSION = '4.1.3';
 }
 
 use 5.010;
@@ -221,6 +221,7 @@ sub _get_entry_by_id {
 # perl -Ilib bin/tapper-testrun list --id 16
 
 __END__
+
 =pod
 
 =encoding utf-8
@@ -242,4 +243,3 @@ This is free software, licensed under:
   The (two-clause) FreeBSD License
 
 =cut
-

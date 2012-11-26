@@ -5,8 +5,8 @@
 use Tapper::CLI::Testrun;
 Tapper::CLI::Testrun->run;
 
-
 __END__
+
 =pod
 
 =encoding utf-8
@@ -28,4 +28,3 @@ This is free software, licensed under:
   The (two-clause) FreeBSD License
 
 =cut
-

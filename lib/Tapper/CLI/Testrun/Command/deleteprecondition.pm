@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::Testrun::Command::deleteprecondition::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::Testrun::Command::deleteprecondition::VERSION = '4.1.2';
+  $Tapper::CLI::Testrun::Command::deleteprecondition::VERSION = '4.1.3';
 }
 
 use strict;
@@ -78,6 +78,7 @@ sub execute {
 # perl -Ilib bin/tapper-testrun deleteprecondition --id 16
 
 __END__
+
 =pod
 
 =encoding utf-8
@@ -99,4 +100,3 @@ This is free software, licensed under:
   The (two-clause) FreeBSD License
 
 =cut
-

@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::API::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::API::VERSION = '4.1.2';
+  $Tapper::CLI::API::VERSION = '4.1.3';
 }
 
 use strict;
@@ -32,8 +32,8 @@ sub validate_args
 
 1;
 
-
 __END__
+
 =pod
 
 =encoding utf-8
@@ -55,4 +55,3 @@ This is free software, licensed under:
   The (two-clause) FreeBSD License
 
 =cut
-

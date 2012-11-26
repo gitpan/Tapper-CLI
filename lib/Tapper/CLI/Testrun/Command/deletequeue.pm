@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::Testrun::Command::deletequeue::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::Testrun::Command::deletequeue::VERSION = '4.1.2';
+  $Tapper::CLI::Testrun::Command::deletequeue::VERSION = '4.1.3';
 }
 
 use 5.010;
@@ -107,6 +107,7 @@ sub execute
 1;
 
 __END__
+
 =pod
 
 =encoding utf-8
@@ -128,4 +129,3 @@ This is free software, licensed under:
   The (two-clause) FreeBSD License
 
 =cut
-

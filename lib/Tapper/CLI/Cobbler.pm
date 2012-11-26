@@ -3,7 +3,7 @@ BEGIN {
   $Tapper::CLI::Cobbler::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::Cobbler::VERSION = '4.1.2';
+  $Tapper::CLI::Cobbler::VERSION = '4.1.3';
 }
 
 use 5.010;
@@ -112,6 +112,7 @@ sub setup
 1; # End of Tapper::CLI
 
 __END__
+
 =pod
 
 =encoding utf-8
@@ -166,4 +167,3 @@ This is free software, licensed under:
   The (two-clause) FreeBSD License
 
 =cut
-

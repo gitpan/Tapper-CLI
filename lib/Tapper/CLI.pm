@@ -1,11 +1,11 @@
 package Tapper::CLI;
-# git description: v4.1.1-3-g3a50530
+# git description: v4.1.2-1-gfc81a27
 
 BEGIN {
   $Tapper::CLI::AUTHORITY = 'cpan:TAPPER';
 }
 {
-  $Tapper::CLI::VERSION = '4.1.2';
+  $Tapper::CLI::VERSION = '4.1.3';
 }
 # ABSTRACT: Tapper - tapper-* commandline tools
 
@@ -15,6 +15,7 @@ use strict;
 1; # End of Tapper::CLI
 
 __END__
+
 =pod
 
 =encoding utf-8
@@ -36,4 +37,3 @@ This is free software, licensed under:
   The (two-clause) FreeBSD License
 
 =cut
-
